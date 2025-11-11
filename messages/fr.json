@@ -87,6 +87,25 @@
       "organizing": "Organisation du PDF...",
       "noPages": "Aucune page restante. Veuillez restaurer au moins une page.",
       "page": "Page"
+    },
+    "compressPdf": {
+      "title": "Compresser PDF",
+      "description": "Réduire la taille du fichier PDF tout en maintenant la qualité",
+      "heading": "Compresser le fichier PDF",
+      "intro": "Réduisez la taille de votre fichier PDF en optimisant les images et en supprimant les données inutiles. Parfait pour les pièces jointes d'email et les téléchargements plus rapides.",
+      "uploadFile": "Télécharger un fichier PDF",
+      "originalSize": "Taille originale",
+      "compressedSize": "Taille compressée",
+      "compressionRatio": "Taux de compression",
+      "quality": "Niveau de qualité",
+      "qualityHigh": "Haute qualité (moins de compression)",
+      "qualityMedium": "Qualité moyenne (équilibrée)",
+      "qualityLow": "Basse qualité (compression maximale)",
+      "compressButton": "Compresser le PDF",
+      "compressing": "Compression en cours...",
+      "downloadCompressed": "Télécharger le PDF compressé",
+      "fileInfo": "Fichier : {name}",
+      "savedSpace": "{percent}% d'espace économisé"
     }
   },
   "fileUpload": {
@@ -166,6 +185,22 @@
       "feature4": "Sans limites - Organisez des PDFs de toute taille avec un nombre illimité de pages",
       "whyTitle": "Pourquoi organiser les pages PDF?",
       "whyDescription": "L'organisation des pages PDF est essentielle pour créer des documents professionnels, supprimer du contenu inutile, corriger l'ordre des pages ou préparer des documents pour l'impression. Notre outil facilite la réorganisation et le nettoyage de vos PDFs tout en maintenant la qualité et le formatage."
+    },
+    "compressPdf": {
+      "metaDescription": "Compresser des fichiers PDF en ligne gratuitement. Réduire la taille des fichiers PDF tout en maintenant la qualité. Traitement 100% côté client, sécurisé et privé.",
+      "heading": "Compresseur PDF gratuit en ligne",
+      "description1": "Compressez vos fichiers PDF pour réduire leur taille avec notre outil en ligne gratuit. Optimisez les images, supprimez les données dupliquées et rendez vos PDFs plus petits pour un partage plus facile et des téléchargements plus rapides. Tout le traitement se fait localement dans votre navigateur pour une confidentialité maximale.",
+      "howToTitle": "Comment compresser des fichiers PDF",
+      "step1": "Téléchargez votre fichier PDF en le glissant-déposant ou en cliquant pour parcourir",
+      "step2": "Choisissez votre niveau de qualité (compression haute, moyenne ou basse)",
+      "step3": "Cliquez sur 'Compresser le PDF' et téléchargez votre fichier optimisé",
+      "featuresTitle": "Fonctionnalités clés",
+      "feature1": "Compression intelligente - Réduit la taille sans perte de qualité visible",
+      "feature2": "Contrôle de la qualité - Choisissez le niveau de compression selon vos besoins",
+      "feature3": "100% Sécurisé - Les fichiers ne quittent jamais votre navigateur, traités localement",
+      "feature4": "Traitement rapide - Compression instantanée sans délais de téléchargement",
+      "whyTitle": "Pourquoi compresser les fichiers PDF?",
+      "whyDescription": "La compression des PDFs est essentielle pour les pièces jointes d'email, le chargement plus rapide des sites web, l'économie d'espace de stockage et le respect des limites de taille de fichier. Notre outil utilise des algorithmes de compression intelligents pour réduire considérablement la taille du fichier tout en maintenant la qualité et la lisibilité du document."
     }
   }
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { Scissors, Combine, FileImage, GripVertical } from "lucide-react"
+import { Scissors, Combine, FileImage, GripVertical, FileDown } from "lucide-react"
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
@@ -39,6 +39,13 @@ export default function Home() {
       description: t('tools.organizePdf.description'),
     },
     {
+      id: "compress-pdf",
+      path: "compress-pdf",
+      icon: FileDown,
+      title: t('tools.compressPdf.title'),
+      description: t('tools.compressPdf.description'),
+    },
+    {
       id: "image-to-pdf",
       path: "image-to-pdf",
       icon: FileImage,
@@ -50,10 +57,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Logo" className="h-10 w-10" />
-            <h1 className="text-2xl font-bold hidden sm:block">{t('header.title')}</h1>
           </div>
           <div className="flex items-center gap-3">
             <BookmarkButton />

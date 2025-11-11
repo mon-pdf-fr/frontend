@@ -1,19 +1,39 @@
 import createMiddleware from 'next-intl/middleware';
 import { locales } from './i18n';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export default createMiddleware({
-  // A list of all locales that are supported
+// Function to detect bots
+function isBot(userAgent: string | null) {
+  if (!userAgent) return false;
+  return /bot|crawl|spider|bing|google|vercel-favicon|GPTBot|Go-http-client/i.test(userAgent);
+}
+
+// Original next-intl middleware
+const intlMiddleware = createMiddleware({
   locales: locales as unknown as string[],
-
-  // Used when no locale matches
   defaultLocale: 'en',
-
-  // Always show locale in URL
-  localePrefix: 'always'
+  localePrefix: 'always',
 });
 
+// Wrapped middleware
+export default function middleware(req: NextRequest) {
+  const userAgent = req.headers.get('user-agent');
+  const bot = isBot(userAgent);
+
+  // Run the next-intl middleware first
+  const res = intlMiddleware(req) as NextResponse;
+
+  // Add custom header to mark human vs bot
+  if (!bot) {
+    res.headers.set('x-human-visit', 'true');
+  } else {
+    res.headers.set('x-human-visit', 'false');
+  }
+
+  return res;
+}
+
 export const config = {
-  // Match only internationalized pathnames
-  // Skip all internal Next.js paths
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'], // keep your original matcher
 };

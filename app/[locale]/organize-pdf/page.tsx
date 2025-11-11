@@ -16,7 +16,6 @@ export default function OrganizePDFPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Logo" className="h-10 w-10" />
-            <h1 className="text-2xl font-bold">{t('header.title')}</h1>
           </div>
           <LanguageSwitcher />
         </div>
