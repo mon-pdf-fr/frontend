@@ -1,0 +1,73 @@
+{
+  "common": {
+    "backToTools": "Retour aux outils",
+    "processing": "Traitement en cours...",
+    "loading": "Chargement...",
+    "download": "Télécharger",
+    "selectAll": "Tout sélectionner",
+    "deselectAll": "Tout désélectionner",
+    "cancel": "Annuler",
+    "continue": "Continuer",
+    "privacyNote": "Tout le traitement se fait localement dans votre navigateur. Vos fichiers ne sont jamais téléchargés."
+  },
+  "header": {
+    "title": "Mon PDF"
+  },
+  "home": {
+    "title": "Choisissez un outil pour commencer",
+    "subtitle": "Tout le traitement se fait dans votre navigateur. Vos fichiers ne quittent jamais votre appareil."
+  },
+  "tools": {
+    "split": {
+      "title": "Fractionner PDF",
+      "description": "Extraire des pages de votre PDF dans des fichiers séparés",
+      "heading": "Diviser PDF",
+      "intro": "Extraire des pages spécifiques de votre PDF en les sélectionnant visuellement ou en utilisant des plages de pages",
+      "selected": "Sélectionné",
+      "pages": "pages",
+      "selectPages": "Sélectionnez les pages en cliquant dessus",
+      "pageSelected": "page sélectionnée",
+      "pagesSelected": "pages sélectionnées",
+      "downloadSelected": "Télécharger les pages sélectionnées",
+      "orUseRange": "Ou utiliser la plage de pages (Avancé)",
+      "pageRangePlaceholder": "ex: 1-3,5,7-9",
+      "pageRangeHelp": "Entrez les numéros de page ou les plages séparés par des virgules",
+      "splitByRange": "Diviser le PDF par plage",
+      "loadedPages": "{current} sur {total} pages chargées"
+    },
+    "merge": {
+      "title": "Fusionner PDFs",
+      "description": "Combiner plusieurs fichiers PDF en un seul document",
+      "heading": "Fusionner PDFs",
+      "intro": "Combiner plusieurs fichiers PDF en un seul document",
+      "uploadFiles": "Télécharger des fichiers PDF",
+      "filesUploaded": "fichiers téléchargés",
+      "reorder": "Glissez pour réorganiser les fichiers",
+      "mergeAll": "Fusionner tous les PDFs",
+      "downloading": "Fusion et téléchargement..."
+    },
+    "imageToPdf": {
+      "title": "Image vers PDF",
+      "description": "Convertir des images (PNG, JPG) au format PDF",
+      "heading": "Image vers PDF",
+      "intro": "Convertir vos images en un seul document PDF",
+      "uploadImages": "Télécharger des images",
+      "imagesUploaded": "images téléchargées",
+      "convertAll": "Convertir en PDF",
+      "converting": "Conversion en cours..."
+    }
+  },
+  "fileUpload": {
+    "dragDrop": "Glissez et déposez les fichiers {type} ici",
+    "or": "ou",
+    "browse": "Parcourir les fichiers",
+    "acceptedFormats": "Formats acceptés:",
+    "pdf": "PDF",
+    "images": "PNG, JPG, JPEG"
+  },
+  "pageSelector": {
+    "loading": "Chargement du PDF...",
+    "loadingPage": "Chargement de la page {number}...",
+    "page": "Page {number}"
+  }
+}
