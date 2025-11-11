@@ -59,7 +59,7 @@ export default function Home() {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Logo" className="h-10 w-10" />
+            <img src="/logo.png" alt="Logo" className="h-30 w-30" />
           </div>
           <div className="flex items-center gap-3">
             <BookmarkButton />
