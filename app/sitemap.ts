@@ -7,21 +7,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes: MetadataRoute.Sitemap = []
 
-  // Add root homepage (redirects to default locale)
-  routes.push({
-    url: baseUrl,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 1.0,
-  })
-
-  // Add homepage for each locale
+  // Add homepage for each locale (no root URL to avoid redirect issues)
   locales.forEach((locale) => {
     routes.push({
       url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 1.0,
     })
   })
 

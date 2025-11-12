@@ -13,7 +13,8 @@ function isBot(userAgent: string | null) {
 const intlMiddleware = createMiddleware({
   locales: locales as unknown as string[],
   defaultLocale: 'en',
-  localePrefix: 'as-needed',
+  localePrefix: 'always',
+  localeDetection: true,
 });
 
 // Wrapped middleware
