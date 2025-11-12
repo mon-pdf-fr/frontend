@@ -1,11 +1,19 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://monpdf.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'
   const locales = ['en', 'fr']
-  const tools = ['split', 'merge', 'organize-pdf', 'compress-pdf', 'image-to-pdf']
+  const tools = ['split', 'merge', 'organize-pdf', 'compress-pdf', 'image-to-pdf', 'ocr']
 
   const routes: MetadataRoute.Sitemap = []
+
+  // Add root homepage (redirects to default locale)
+  routes.push({
+    url: baseUrl,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 1.0,
+  })
 
   // Add homepage for each locale
   locales.forEach((locale) => {
@@ -13,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 1.0,
+      priority: 0.9,
     })
   })
 

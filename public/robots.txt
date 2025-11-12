@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://monpdf.com/sitemap.xml
+Sitemap: https://mon-pdf.fr/sitemap.xml
