@@ -1,6 +1,6 @@
 "use client"
 
-import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText} from "lucide-react"
+import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon} from "lucide-react"
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
@@ -55,6 +55,14 @@ export default function Home() {
       icon: FileImage,
       title: t('tools.imageToPdf.title'),
       description: t('tools.imageToPdf.description'),
+      isBeta: false,
+    },
+    {
+      id: "pdf-to-images",
+      path: "pdf-to-images",
+      icon: ImageIcon,
+      title: t('tools.pdfToImages.title'),
+      description: t('tools.pdfToImages.description'),
       isBeta: false,
     },
     {

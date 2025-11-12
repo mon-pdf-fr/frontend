@@ -108,6 +108,35 @@
       "fileInfo": "Fichier : {name}",
       "savedSpace": "{percent}% d'espace économisé"
     },
+    "pdfToImages": {
+      "title": "PDF vers Images",
+      "description": "Convertir chaque page PDF en fichier image séparé",
+      "uploadPrompt": "Cliquez ou déposez un fichier PDF à convertir",
+      "uploadHint": "Chaque page sera convertie en image séparée (max 100 Mo)",
+      "imageFormat": "Format d'Image",
+      "formatPng": "(Sans perte, fichier plus gros)",
+      "formatJpeg": "(Compressé, fichier plus petit)",
+      "formatWebp": "(Moderne, équilibré)",
+      "quality": "Qualité",
+      "validating": "Validation du PDF...",
+      "converting": "Conversion du PDF en images...",
+      "convertingPage": "Conversion de la page {current} sur {total}...",
+      "conversionComplete": "{count} pages converties en images avec succès !",
+      "invalidPdf": "Fichier PDF invalide. Veuillez télécharger un PDF valide.",
+      "fileTooLarge": "Fichier trop volumineux. Veuillez télécharger un PDF de moins de 100 Mo.",
+      "largeFileWarning": "Ce PDF contient {count} pages. Le traitement peut prendre plusieurs minutes. Continuer ?",
+      "processingError": "Échec du traitement du PDF. Veuillez réessayer.",
+      "convertAnother": "Convertir un autre PDF",
+      "convertedImages": "Images Converties",
+      "imageCount": "{count} images prêtes à télécharger",
+      "downloadAll": "Tout Télécharger",
+      "download": "Télécharger",
+      "pageNumber": "Page {number}",
+      "pageProgress": "Page {current} sur {total}",
+      "successTitle": "Conversion Terminée !",
+      "successDescription": "{count} pages converties en images avec succès.",
+      "downloadSuccess": "Téléchargement réussi"
+    },
     "ocr": {
       "title": "OCR PDF & Extraction de Données",
       "description": "Extraire le texte des PDF scannés et détecter les tableaux et données",
@@ -256,6 +285,22 @@
       "feature5": "Plus de 10 langues - Prise en charge du français, anglais, espagnol, allemand, et plus",
       "whyTitle": "Pourquoi utiliser l'OCR PDF?",
       "whyDescription": "La technologie OCR rend les documents scannés consultables et modifiables. Extrayez des données de factures, formulaires, reçus, contrats ou tout document scanné. Parfait pour numériser des archives, automatiser la saisie de données ou rendre d'anciens documents accessibles. Tout le traitement se fait dans votre navigateur pour une confidentialité et une sécurité maximales."
+    },
+    "pdfToImages": {
+      "metaDescription": "Convertir PDF en images en ligne gratuitement. Extraire chaque page en PNG, JPEG ou WebP. Conversion haute qualité, pas de téléchargement requis, traitement 100% côté client.",
+      "heading": "Convertisseur gratuit de PDF en images en ligne",
+      "description1": "Convertissez vos documents PDF en images individuelles avec notre convertisseur en ligne gratuit. Chaque page devient un fichier image de haute qualité au format PNG, JPEG ou WebP. Parfait pour extraire des pages, créer des présentations ou partager des pages spécifiques.",
+      "howToTitle": "Comment convertir un PDF en images",
+      "step1": "Téléchargez votre fichier PDF en le glissant-déposant ou en cliquant pour parcourir",
+      "step2": "Choisissez votre format d'image préféré (PNG, JPEG ou WebP) et les paramètres de qualité",
+      "step3": "Cliquez sur convertir et téléchargez toutes les images ou des pages individuelles",
+      "featuresTitle": "Fonctionnalités clés",
+      "feature1": "Plusieurs formats - Exportez en PNG, JPEG ou WebP avec contrôle de la qualité",
+      "feature2": "Haute qualité - Mise à l'échelle 2x pour des images nettes et claires",
+      "feature3": "100% Privé - Tout le traitement se fait localement dans votre navigateur",
+      "feature4": "Téléchargement par lot - Téléchargez toutes les images en une fois ou individuellement",
+      "whyTitle": "Pourquoi convertir un PDF en images?",
+      "whyDescription": "La conversion de pages PDF en images est utile pour créer des présentations, partager des pages spécifiques sur les réseaux sociaux, les incorporer dans des documents, créer des vignettes ou archiver des pages importantes. Notre outil facilite l'extraction de n'importe quelle page sous forme de fichier image de haute qualité."
     }
   }
 }
