@@ -1,6 +1,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
+import { BetaBadge } from "@/components/ui/beta-badge"
 import { cn } from "@/lib/utils"
 import type { LucideIcon } from "lucide-react"
 
@@ -10,9 +11,22 @@ interface PDFToolCardProps {
   description: string
   onClick: () => void
   active?: boolean
+  /**
+   * Show beta badge with optional custom tooltip message
+   */
+  isBeta?: boolean
+  betaTooltip?: string
 }
 
-export function PDFToolCard({ icon: Icon, title, description, onClick, active }: PDFToolCardProps) {
+export function PDFToolCard({
+  icon: Icon,
+  title,
+  description,
+  onClick,
+  active,
+  isBeta = false,
+  betaTooltip
+}: PDFToolCardProps) {
   return (
     <Card
       className={cn(
@@ -21,6 +35,11 @@ export function PDFToolCard({ icon: Icon, title, description, onClick, active }:
       )}
       onClick={onClick}
     >
+      {isBeta && (
+        <div className="absolute top-3 right-3 z-10">
+          <BetaBadge tooltipMessage={betaTooltip} />
+        </div>
+      )}
       <div className="p-6">
         <div
           className={cn(

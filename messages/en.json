@@ -8,7 +8,8 @@
     "deselectAll": "Deselect All",
     "cancel": "Cancel",
     "continue": "Continue",
-    "privacyNote": "🔒 100% Private & Secure: All processing happens locally on your device. Your files never leave your computer and are never uploaded to any server."
+    "privacyNote": "🔒 100% Private & Secure: All processing happens locally on your device. Your files never leave your computer and are never uploaded to any server.",
+    "betaTooltip": "This feature is currently in beta testing and may not be 100% accurate. We're continuously improving it based on user feedback."
   },
   "bookmark": {
     "button": "Bookmark",
@@ -106,6 +107,42 @@
       "downloadCompressed": "Download Compressed PDF",
       "fileInfo": "File: {name}",
       "savedSpace": "Saved {percent}% space"
+    },
+    "ocr": {
+      "title": "PDF OCR & Data Extraction",
+      "description": "Extract text from scanned PDFs and detect tables and data",
+      "heading": "PDF OCR & Data Extraction",
+      "uploadPrompt": "Click or drag a PDF file to start OCR",
+      "uploadHint": "Supports scanned and digital PDFs (max 50MB)",
+      "selectLanguage": "OCR Language",
+      "processAnother": "Process Another PDF",
+      "extractedText": "Extracted Text",
+      "detectedTables": "Detected Tables",
+      "detectedKeyValues": "Key-Value Pairs",
+      "noTablesDetected": "No tables detected in this document",
+      "noKeyValuesDetected": "No key-value pairs detected",
+      "preview": "Preview with Highlights",
+      "showBoundingBoxes": "Show Bounding Boxes",
+      "hideBoundingBoxes": "Hide Bounding Boxes",
+      "copy": "Copy",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "export": "Export Data",
+      "exportDescription": "Export extracted data in your preferred format",
+      "exportCSV": "Export as CSV",
+      "exportJSON": "Export as JSON",
+      "exportTXT": "Export as Text",
+      "selectedItemsNote": "Exporting selected items",
+      "copySuccess": "Copied to clipboard!",
+      "copySuccessDescription": "The extracted text has been copied to your clipboard.",
+      "copyError": "Failed to copy to clipboard",
+      "copyErrorDescription": "Please try again or check your browser permissions.",
+      "tabs": {
+        "text": "Full Text",
+        "tables": "Tables",
+        "keyValues": "Key-Value Pairs",
+        "preview": "Preview"
+      }
     }
   },
   "fileUpload": {
@@ -201,6 +238,24 @@
       "feature4": "Fast Processing - Instant compression with no upload delays",
       "whyTitle": "Why Compress PDF Files?",
       "whyDescription": "Compressing PDFs is essential for email attachments, faster website loading, saving storage space, and meeting file size limits. Our tool uses smart compression algorithms to significantly reduce file size while maintaining document quality and readability."
+    },
+    "ocr": {
+      "metaDescription": "Extract text from scanned PDFs with OCR online for free. Detect tables, key-value pairs, and export data in CSV, JSON, or TXT format. 100% client-side processing.",
+      "heading": "Free Online PDF OCR & Data Extraction Tool",
+      "description1": "Extract text from scanned PDFs and images using advanced OCR technology. Our tool runs entirely in your browser, automatically detects tables, finds key-value pairs, and allows you to export data in multiple formats. Perfect for digitizing documents, extracting data, and making scanned PDFs searchable.",
+      "howToTitle": "How to Use PDF OCR",
+      "step1": "Upload your PDF file (scanned or digital)",
+      "step2": "Select OCR language and wait for automatic text extraction",
+      "step3": "Review detected tables and key-value pairs",
+      "step4": "Export extracted data in CSV, JSON, or TXT format",
+      "featuresTitle": "Key Features",
+      "feature1": "Advanced OCR - Extract text from scanned documents with high accuracy",
+      "feature2": "Table Detection - Automatically identify and extract tabular data",
+      "feature3": "Data Extraction - Find key-value pairs and structured information",
+      "feature4": "Multiple Export Formats - Save as CSV, JSON, or plain text",
+      "feature5": "10+ Languages - Supports English, French, Spanish, German, and more",
+      "whyTitle": "Why Use PDF OCR?",
+      "whyDescription": "OCR technology makes scanned documents searchable and editable. Extract data from invoices, forms, receipts, contracts, or any scanned document. Perfect for digitizing archives, automating data entry, or making old documents accessible. All processing happens in your browser for maximum privacy and security."
     }
   }
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack} from "lucide-react"
+import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText} from "lucide-react"
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
@@ -23,6 +23,7 @@ export default function Home() {
       icon: Scissors,
       title: t('tools.split.title'),
       description: t('tools.split.description'),
+      isBeta: false,
     },
     {
       id: "merge",
@@ -30,6 +31,7 @@ export default function Home() {
       icon: Combine,
       title: t('tools.merge.title'),
       description: t('tools.merge.description'),
+      isBeta: false,
     },
     {
       id: "organize-pdf",
@@ -37,6 +39,7 @@ export default function Home() {
       icon: SendToBack,
       title: t('tools.organizePdf.title'),
       description: t('tools.organizePdf.description'),
+      isBeta: false,
     },
     {
       id: "compress-pdf",
@@ -44,6 +47,7 @@ export default function Home() {
       icon: Package,
       title: t('tools.compressPdf.title'),
       description: t('tools.compressPdf.description'),
+      isBeta: false,
     },
     {
       id: "image-to-pdf",
@@ -51,6 +55,15 @@ export default function Home() {
       icon: FileImage,
       title: t('tools.imageToPdf.title'),
       description: t('tools.imageToPdf.description'),
+      isBeta: false,
+    },
+    {
+      id: "ocr",
+      path: "ocr",
+      icon: FileText,
+      title: t('tools.ocr.title'),
+      description: t('tools.ocr.description'),
+      isBeta: true,
     },
   ]
 
@@ -86,6 +99,7 @@ export default function Home() {
                 description={tool.description}
                 onClick={() => handleToolSelect(tool.path)}
                 active={false}
+                isBeta={tool.isBeta}
               />
             ))}
           </div>

@@ -8,7 +8,8 @@
     "deselectAll": "Tout désélectionner",
     "cancel": "Annuler",
     "continue": "Continuer",
-    "privacyNote": "🔒 100% Privé et Sécurisé : Tout le traitement se fait localement sur votre appareil. Vos fichiers ne quittent jamais votre ordinateur et ne sont jamais téléchargés sur un serveur."
+    "privacyNote": "🔒 100% Privé et Sécurisé : Tout le traitement se fait localement sur votre appareil. Vos fichiers ne quittent jamais votre ordinateur et ne sont jamais téléchargés sur un serveur.",
+    "betaTooltip": "Cette fonctionnalité est actuellement en phase de test bêta et peut ne pas être précise à 100%. Nous l'améliorons continuellement en fonction des retours des utilisateurs."
   },
   "bookmark": {
     "button": "Favoris",
@@ -106,6 +107,42 @@
       "downloadCompressed": "Télécharger le PDF compressé",
       "fileInfo": "Fichier : {name}",
       "savedSpace": "{percent}% d'espace économisé"
+    },
+    "ocr": {
+      "title": "OCR PDF & Extraction de Données",
+      "description": "Extraire le texte des PDF scannés et détecter les tableaux et données",
+      "heading": "OCR PDF & Extraction de Données",
+      "uploadPrompt": "Cliquez ou déposez un fichier PDF pour commencer l'OCR",
+      "uploadHint": "Prend en charge les PDF scannés et numériques (max 50 Mo)",
+      "selectLanguage": "Langue OCR",
+      "processAnother": "Traiter un autre PDF",
+      "extractedText": "Texte Extrait",
+      "detectedTables": "Tableaux Détectés",
+      "detectedKeyValues": "Paires Clé-Valeur",
+      "noTablesDetected": "Aucun tableau détecté dans ce document",
+      "noKeyValuesDetected": "Aucune paire clé-valeur détectée",
+      "preview": "Aperçu avec Surbrillance",
+      "showBoundingBoxes": "Afficher les Boîtes Englobantes",
+      "hideBoundingBoxes": "Masquer les Boîtes Englobantes",
+      "copy": "Copier",
+      "selectAll": "Tout Sélectionner",
+      "deselectAll": "Tout Désélectionner",
+      "export": "Exporter les Données",
+      "exportDescription": "Exporter les données extraites dans votre format préféré",
+      "exportCSV": "Exporter en CSV",
+      "exportJSON": "Exporter en JSON",
+      "exportTXT": "Exporter en Texte",
+      "selectedItemsNote": "Export des éléments sélectionnés",
+      "copySuccess": "Copié dans le presse-papiers !",
+      "copySuccessDescription": "Le texte extrait a été copié dans votre presse-papiers.",
+      "copyError": "Échec de la copie dans le presse-papiers",
+      "copyErrorDescription": "Veuillez réessayer ou vérifier les permissions de votre navigateur.",
+      "tabs": {
+        "text": "Texte Complet",
+        "tables": "Tableaux",
+        "keyValues": "Paires Clé-Valeur",
+        "preview": "Aperçu"
+      }
     }
   },
   "fileUpload": {
@@ -201,6 +238,24 @@
       "feature4": "Traitement rapide - Compression instantanée sans délais de téléchargement",
       "whyTitle": "Pourquoi compresser les fichiers PDF?",
       "whyDescription": "La compression des PDFs est essentielle pour les pièces jointes d'email, le chargement plus rapide des sites web, l'économie d'espace de stockage et le respect des limites de taille de fichier. Notre outil utilise des algorithmes de compression intelligents pour réduire considérablement la taille du fichier tout en maintenant la qualité et la lisibilité du document."
+    },
+    "ocr": {
+      "metaDescription": "Extraire le texte des PDF scannés avec OCR en ligne gratuitement. Détectez les tableaux, les paires clé-valeur et exportez les données en CSV, JSON ou TXT. Traitement 100% côté client.",
+      "heading": "Outil gratuit d'OCR et d'extraction de données PDF en ligne",
+      "description1": "Extrayez le texte des PDF scannés et des images à l'aide d'une technologie OCR avancée. Notre outil fonctionne entièrement dans votre navigateur, détecte automatiquement les tableaux, trouve les paires clé-valeur et vous permet d'exporter les données dans plusieurs formats. Parfait pour numériser des documents, extraire des données et rendre les PDF scannés consultables.",
+      "howToTitle": "Comment utiliser l'OCR PDF",
+      "step1": "Téléchargez votre fichier PDF (scanné ou numérique)",
+      "step2": "Sélectionnez la langue OCR et attendez l'extraction automatique du texte",
+      "step3": "Consultez les tableaux détectés et les paires clé-valeur",
+      "step4": "Exportez les données extraites au format CSV, JSON ou TXT",
+      "featuresTitle": "Fonctionnalités clés",
+      "feature1": "OCR avancé - Extraire le texte des documents scannés avec une grande précision",
+      "feature2": "Détection de tableaux - Identifier et extraire automatiquement les données tabulaires",
+      "feature3": "Extraction de données - Trouver les paires clé-valeur et les informations structurées",
+      "feature4": "Plusieurs formats d'export - Enregistrer en CSV, JSON ou texte brut",
+      "feature5": "Plus de 10 langues - Prise en charge du français, anglais, espagnol, allemand, et plus",
+      "whyTitle": "Pourquoi utiliser l'OCR PDF?",
+      "whyDescription": "La technologie OCR rend les documents scannés consultables et modifiables. Extrayez des données de factures, formulaires, reçus, contrats ou tout document scanné. Parfait pour numériser des archives, automatiser la saisie de données ou rendre d'anciens documents accessibles. Tout le traitement se fait dans votre navigateur pour une confidentialité et une sécurité maximales."
     }
   }
 }
