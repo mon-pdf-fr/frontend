@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     routes.push({
       url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 1.0,
     })
   })
@@ -23,8 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       routes.push({
         url: `${baseUrl}/${locale}/${tool}`,
         lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
+        changeFrequency: 'daily',
+        priority: 1,
       })
     })
   })
