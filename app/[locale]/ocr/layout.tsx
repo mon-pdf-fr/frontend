@@ -9,15 +9,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
 
-  const title = `${t('tools.ocr.title')} - ${t('header.title')}`
-  const description = t('seo.ocr.metaDescription')
+  // SEO-optimized titles with primary keywords front-loaded
+  const title = locale === 'fr'
+    ? 'OCR PDF Gratuit - Extraire Texte de PDF Scanné | Mon PDF'
+    : 'OCR PDF Free - Extract Text from Scanned PDF | Mon PDF'
+
+  // Compelling meta descriptions addressing user intent
+  const description = locale === 'fr'
+    ? 'OCR PDF gratuit en ligne. Extraire texte de PDF scanné, reconnaître caractères, détecter tableaux. Sans inscription. 100% sécurisé et privé.'
+    : 'Free online PDF OCR. Extract text from scanned PDF, recognize characters, detect tables. No email required. 100% secure and private.'
 
   return {
     title,
     description,
     keywords: locale === 'fr'
-      ? 'ocr pdf, reconnaissance optique caractères, extraire texte pdf, pdf scanné en texte, ocr en ligne, détecter tableaux pdf, extraction données pdf, ocr gratuit'
-      : 'pdf ocr, optical character recognition, extract text from pdf, scanned pdf to text, online ocr, detect tables pdf, pdf data extraction, free ocr',
+      ? 'ocr pdf, reconnaissance optique caractères, extraire texte pdf, pdf scanné en texte, ocr en ligne, détecter tableaux pdf, extraction données pdf, ocr gratuit, convertir pdf image en texte, reconnaissance texte pdf'
+      : 'pdf ocr, optical character recognition, extract text from pdf, scanned pdf to text, online ocr, detect tables pdf, pdf data extraction, free ocr, convert pdf image to text, pdf text recognition',
     authors: [{ name: t('header.title') }],
     creator: t('header.title'),
     publisher: t('header.title'),
@@ -32,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         'en': '/en/ocr',
         'fr': '/fr/ocr',
+        'x-default': '/en/ocr',
       },
     },
     openGraph: {
