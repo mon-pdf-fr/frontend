@@ -81,14 +81,6 @@ export function PDFMergeTool() {
 
       <FileUploadZone onFilesSelected={handleFilesSelected} accept=".pdf" multiple={true} type="pdf" />
 
-      <FileList
-        files={files}
-        selectedFiles={[]}
-        onRemove={(id) => dispatch(removeFile(id))}
-        onToggleSelect={() => {}}
-        selectable={false}
-      />
-
       {files.length >= 2 && (
         <Button onClick={handleMerge} disabled={processing} className="w-full" size="lg">
           {processing ? (

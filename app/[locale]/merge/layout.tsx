@@ -9,15 +9,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
 
-  const title = `${t('tools.merge.title')} - ${t('header.title')}`
-  const description = t('seo.merge.metaDescription')
+  // SEO-optimized titles with primary keywords front-loaded
+  const title = locale === 'fr'
+    ? 'Fusionner PDF en Ligne Gratuit - Combiner Plusieurs PDF | Mon PDF'
+    : 'Merge PDF Files Online Free - Combine Multiple PDFs | Mon PDF'
+
+  // Compelling meta descriptions addressing user intent
+  const description = locale === 'fr'
+    ? 'Fusionner des fichiers PDF en ligne gratuitement. Combinez plusieurs PDF en un seul document en quelques secondes. Sans inscription. 100% sécurisé et privé.'
+    : 'Merge PDF files online for free. Combine multiple PDFs into one document in seconds. No email required. 100% secure and private. Works on all devices.'
 
   return {
     title,
     description,
     keywords: locale === 'fr'
-      ? 'fusionner pdf, combiner pdf, joindre pdf, regrouper pdf, assembler pdf, pdf en ligne, outil pdf gratuit'
-      : 'merge pdf, combine pdf, join pdf, unite pdf, concatenate pdf, online pdf, free pdf tool',
+      ? 'fusionner pdf, combiner pdf, joindre pdf, fusionner plusieurs pdf, fusion de pdf, fusionner fichiers pdf, combiner fichiers pdf, outil fusion pdf, fusionner pdf en ligne, fusionner pdf gratuit, joindre pdf ensemble, fusionner documents pdf, regrouper pdf, assembler pdf'
+      : 'merge pdf, combine pdf, join pdf, merge pdf files, pdf merger, combine pdf files, join pdf files, merge multiple pdfs, pdf combiner, merge pdf online, merge pdf free, pdf merging tool, concatenate pdf, unite pdf files, join pdfs together',
     authors: [{ name: t('header.title') }],
     creator: t('header.title'),
     publisher: t('header.title'),
@@ -26,18 +33,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       address: false,
       telephone: false,
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://monpdf.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: `/${locale}/merge`,
+      canonical: locale === 'fr' ? '/fr/fusionner-pdf' : '/en/merge-pdf',
       languages: {
-        'en': '/en/merge',
-        'fr': '/fr/merge',
+        'en': '/en/merge-pdf',
+        'fr': '/fr/fusionner-pdf',
+        'x-default': '/en/merge-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: `/${locale}/merge`,
+      url: locale === 'fr' ? '/fr/fusionner-pdf' : '/en/merge-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

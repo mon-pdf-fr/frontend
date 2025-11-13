@@ -9,15 +9,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
 
-  const title = `${t('tools.split.title')} - ${t('header.title')}`
-  const description = t('seo.split.metaDescription')
+  // SEO-optimized titles with primary keywords front-loaded
+  const title = locale === 'fr'
+    ? 'Diviser PDF en Ligne Gratuit - Séparer et Extraire Pages PDF | Mon PDF'
+    : 'Split PDF Files Online Free - Separate and Extract PDF Pages | Mon PDF'
+
+  // Compelling meta descriptions addressing user intent
+  const description = locale === 'fr'
+    ? 'Diviser des fichiers PDF en ligne gratuitement. Séparez un PDF en plusieurs fichiers ou extrayez des pages spécifiques. Sans inscription. 100% sécurisé et privé.'
+    : 'Split PDF files online for free. Separate a PDF into multiple files or extract specific pages. No email required. 100% secure and private. Works on all devices.'
 
   return {
     title,
     description,
     keywords: locale === 'fr'
-      ? 'fractionner pdf, diviser pdf, extraire pages pdf, séparer pdf, découper pdf, pdf en ligne, outil pdf gratuit'
-      : 'split pdf, divide pdf, extract pdf pages, separate pdf, cut pdf, online pdf, free pdf tool',
+      ? 'diviser pdf, séparer pdf, fractionner pdf, extraire pages pdf, découper pdf, diviser pdf en ligne, diviser pdf gratuit, séparer pdf en plusieurs fichiers, extraction pages pdf, découper fichier pdf, outil division pdf, partitionner pdf, scinder pdf'
+      : 'split pdf, divide pdf, separate pdf, extract pdf pages, split pdf online, split pdf free, separate pdf into multiple files, extract pages from pdf, divide pdf file, pdf splitter tool, pdf page extractor, break apart pdf, partition pdf',
     authors: [{ name: t('header.title') }],
     creator: t('header.title'),
     publisher: t('header.title'),
@@ -26,18 +33,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       address: false,
       telephone: false,
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://monpdf.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: `/${locale}/split`,
+      canonical: locale === 'fr' ? '/fr/diviser-pdf' : '/en/split-pdf',
       languages: {
-        'en': '/en/split',
-        'fr': '/fr/split',
+        'en': '/en/split-pdf',
+        'fr': '/fr/diviser-pdf',
+        'x-default': '/en/split-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: `/${locale}/split`,
+      url: locale === 'fr' ? '/fr/diviser-pdf' : '/en/split-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

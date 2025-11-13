@@ -9,15 +9,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
 
-  const title = `${t('tools.organizePdf.title')} - ${t('header.title')}`
-  const description = t('seo.organizePdf.metaDescription')
+  // SEO-optimized titles with primary keywords front-loaded
+  const title = locale === 'fr'
+    ? 'Organiser PDF en Ligne Gratuit - Réorganiser Pages PDF | Mon PDF'
+    : 'Organize PDF Online Free - Rearrange PDF Pages | Mon PDF'
+
+  // Compelling meta descriptions addressing user intent
+  const description = locale === 'fr'
+    ? 'Organiser des pages PDF en ligne gratuitement. Réorganisez, supprimez, faites pivoter ou dupliquez des pages. Sans inscription. 100% sécurisé et privé.'
+    : 'Organize PDF pages online for free. Rearrange, delete, rotate, or duplicate pages. No email required. 100% secure and private. Works on all devices.'
 
   return {
     title,
     description,
     keywords: locale === 'fr'
-      ? 'organiser pdf, réorganiser pages pdf, supprimer pages pdf, réarranger pdf, modifier ordre pages pdf, outil pdf gratuit'
-      : 'organize pdf, reorder pdf pages, delete pdf pages, rearrange pdf, rearrange pages, pdf page order, free pdf tool',
+      ? 'organiser pdf, réorganiser pages pdf, supprimer pages pdf, réarranger pdf, modifier ordre pages pdf, outil pdf gratuit, pivoter pages pdf, dupliquer pages pdf, trier pages pdf, déplacer pages pdf'
+      : 'organize pdf, reorder pdf pages, delete pdf pages, rearrange pdf, rearrange pages, pdf page order, free pdf tool, rotate pdf pages, duplicate pdf pages, sort pdf pages, move pdf pages',
     authors: [{ name: t('header.title') }],
     creator: t('header.title'),
     publisher: t('header.title'),
@@ -26,18 +33,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       address: false,
       telephone: false,
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://monpdf.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: `/${locale}/organize-pdf`,
+      canonical: locale === 'fr' ? '/fr/organiser-pdf' : '/en/organize-pdf',
       languages: {
         'en': '/en/organize-pdf',
-        'fr': '/fr/organize-pdf',
+        'fr': '/fr/organiser-pdf',
+        'x-default': '/en/organize-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: `/${locale}/organize-pdf`,
+      url: locale === 'fr' ? '/fr/organiser-pdf' : '/en/organize-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

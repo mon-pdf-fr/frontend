@@ -6,25 +6,25 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale} = await params
+  const { locale } = await params
   const t = await getTranslations({ locale })
 
   // SEO-optimized titles with primary keywords front-loaded
   const title = locale === 'fr'
-    ? 'Numéroter PDF en Ligne Gratuit - Ajouter Numéros de Page PDF | Mon PDF'
-    : 'Number PDF Pages Online Free - Add Page Numbers to PDF | Mon PDF'
+    ? 'Scanner PDF en Ligne Gratuit - Numériser Document vers PDF | Mon PDF'
+    : 'Scan PDF Online Free - Scan Document to PDF | Mon PDF'
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Ajouter des numéros de page à vos PDF en ligne gratuitement. Numérotation personnalisée, position flexible. Sans inscription. 100% sécurisé et privé.'
-    : 'Add page numbers to your PDFs online for free. Custom numbering, flexible position. No email required. 100% secure and private. Works on all devices.'
+    ? 'Scanner et numériser des documents en PDF gratuitement. Utilisez votre webcam ou mobile pour créer des PDF de qualité. Sans inscription. 100% sécurisé et privé.'
+    : 'Scan and digitize documents to PDF for free. Use your webcam or mobile to create quality PDFs. No email required. 100% secure and private.'
 
   return {
     title,
     description,
     keywords: locale === 'fr'
-      ? 'numéroter pdf, ajouter numéros pages pdf, paginer pdf, numéros romains pdf, numérotation personnalisée pdf, outil pdf gratuit, numérotation en ligne, ajouter pagination pdf, numéros pages automatiques'
-      : 'number pdf pages, add page numbers to pdf, pdf page numbering, roman numerals pdf, custom page numbering, free pdf tool, online page numbering, add pagination to pdf, automatic page numbers',
+      ? 'scanner pdf, numériser pdf, document vers pdf, scan pdf gratuit, scanner document pdf, numérisation pdf, webcam vers pdf, mobile scan pdf, créer pdf scan, scanner en ligne gratuit'
+      : 'scan pdf, digitize pdf, document to pdf, scan pdf free, scan document to pdf, pdf scanning, webcam to pdf, mobile scan pdf, create pdf scan, free online scanner',
     authors: [{ name: t('header.title') }],
     creator: t('header.title'),
     publisher: t('header.title'),
@@ -35,23 +35,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: locale === 'fr' ? '/fr/numeroter-pdf' : '/en/number-pdf',
+      canonical: locale === 'fr' ? '/fr/scanner-pdf' : '/en/scan-pdf',
       languages: {
-        'en': '/en/number-pdf',
-        'fr': '/fr/numeroter-pdf',
-        'x-default': '/en/number-pdf',
+        'en': '/en/scan-pdf',
+        'fr': '/fr/scanner-pdf',
+        'x-default': '/en/scan-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: locale === 'fr' ? '/fr/numeroter-pdf' : '/en/number-pdf',
+      url: locale === 'fr' ? '/fr/scanner-pdf' : '/en/scan-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',
       images: [
         {
-          url: '/og-image-page-numbering.png',
+          url: '/og-image-scan-pdf.png',
           width: 1200,
           height: 630,
           alt: title,
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/og-image-page-numbering.png'],
+      images: ['/og-image-scan-pdf.png'],
     },
     robots: {
       index: true,
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function PageNumberingLayout({
+export default function ScanPDFLayout({
   children,
 }: {
   children: React.ReactNode
