@@ -432,7 +432,7 @@ export function PDFToWordTool() {
                   </div>
                 </div>
                 {!converting && (
-                  <Button variant="ghost" size="sm" onClick={reset}>
+                  <Button variant="ghost" size="sm" onClick={reset} className="cursor-pointer">
                     Change
                   </Button>
                 )}
@@ -459,7 +459,7 @@ export function PDFToWordTool() {
                 <Button
                   onClick={convertToWord}
                   disabled={converting}
-                  className="flex-1"
+                  className="flex-1 cursor-pointer"
                   size="lg"
                 >
                   {converting ? (
@@ -489,7 +489,7 @@ export function PDFToWordTool() {
                   <FileType className="h-5 w-5" />
                   Word Document Preview
                 </h3>
-                <Button variant="outline" size="sm" onClick={reset}>
+                <Button variant="outline" size="sm" onClick={reset} className="cursor-pointer">
                   Convert Another
                 </Button>
               </div>
@@ -601,7 +601,7 @@ export function PDFToWordTool() {
             <Button
                 onClick={() => handleScannedPagesChoice('image')}
                 variant="outline"
-                className="w-full h-auto py-3 px-3 flex items-start gap-3 hover:bg-primary/5 text-left"
+                className="w-full h-auto py-3 px-3 flex items-start gap-3 hover:bg-primary/5 text-left cursor-pointer"
             >
               <ImageIcon className="h-5 w-5 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0 flex flex-col">
@@ -615,7 +615,7 @@ export function PDFToWordTool() {
             <Button
                 onClick={() => handleScannedPagesChoice('ocr')}
                 variant="outline"
-                className="w-full h-auto py-3 px-3 flex items-start gap-3 hover:bg-primary/5 text-left"
+                className="w-full h-auto py-3 px-3 flex items-start gap-3 hover:bg-primary/5 text-left cursor-pointer"
             >
               <Scan className="h-5 w-5 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0 flex flex-col">

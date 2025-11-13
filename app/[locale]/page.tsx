@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function Home() {
   const t = useTranslations()
@@ -138,11 +139,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="border-t border-border mt-24 py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>{t('common.privacyNote')}</p>
-        </div>
-      </footer>
+      <SiteFooter locale={pathname.split('/')[1] || 'en'} />
     </div>
   )
 }

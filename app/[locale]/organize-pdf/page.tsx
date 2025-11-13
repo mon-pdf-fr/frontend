@@ -8,6 +8,7 @@ import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
 import Link from 'next/link'
 import Script from 'next/script'
+import {SiteFooter} from "@/components/site-footer";
 
 export default function OrganizePDFPage() {
   const t = useTranslations()
@@ -415,11 +416,7 @@ export default function OrganizePDFPage() {
         </div>
       </main>
 
-      <footer className="border-t border-border mt-24 py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>{t('common.privacyNote')}</p>
-        </div>
-      </footer>
+        <SiteFooter locale={pathname.split('/')[1] || 'en'} />
     </div>
     </>
   )
