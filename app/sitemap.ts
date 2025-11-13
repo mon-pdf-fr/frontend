@@ -5,8 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'
   const locales = ['en', 'fr'] as const
   const tools = [
-    'split',
-    'merge',
+    'split-pdf',
+    'merge-pdf',
     'organize-pdf',
     'compress-pdf',
     'image-to-pdf',
