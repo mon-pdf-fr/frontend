@@ -3,7 +3,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 // Set up the worker
 if (typeof window !== 'undefined') {
   // Use a stable CDN URL that works with the installed version
-  pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
 }
 
 export interface PDFPageImage {
