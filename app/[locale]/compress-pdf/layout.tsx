@@ -38,10 +38,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: locale === 'fr' ? '/fr/compresser-pdf' : '/en/compress-pdf',
+      canonical: locale === 'fr' ? '/fr/compress-pdf' : '/en/compress-pdf',
       languages: {
         'en': '/en/compress-pdf',
-        'fr': '/fr/compresser-pdf',
+        'fr': '/fr/compress-pdf',
         'x-default': '/en/compress-pdf',
       },
     },
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: 'website',
       locale: locale,
-      url: locale === 'fr' ? '/fr/compresser-pdf' : '/en/compress-pdf',
+      url: locale === 'fr' ? '/fr/compress-pdf' : '/en/compress-pdf',
       siteName: t('header.title'),
       images: [
         {

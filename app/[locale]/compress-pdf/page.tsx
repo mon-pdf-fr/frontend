@@ -40,7 +40,7 @@ export default function CompressPDFPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "Compresser PDF" : "Compress PDF",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'compresser-pdf' : 'compress-pdf'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'compress-pdf' : 'compress-pdf'}`
     }]
   }
 

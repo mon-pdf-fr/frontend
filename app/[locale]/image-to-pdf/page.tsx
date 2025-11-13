@@ -36,7 +36,7 @@ export default function ImageToPDFPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "Image vers PDF" : "Image to PDF",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'image-vers-pdf' : 'image-to-pdf'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'image-to-pdf' : 'image-to-pdf'}`
     }]
   }
 
@@ -297,7 +297,7 @@ export default function ImageToPDFPage() {
               <ul>
                 <li><Link href={`/${locale}/pdf-to-images`} className="text-primary hover:underline">PDF vers Images</Link> - Convertir PDF en images</li>
                 <li><Link href={`/${locale}/merge-pdf`} className="text-primary hover:underline">Fusionner PDF</Link> - Combiner plusieurs PDF</li>
-                <li><Link href={`/${locale}/compresser-pdf`} className="text-primary hover:underline">Compresser PDF</Link> - Réduire la taille du PDF</li>
+                <li><Link href={`/${locale}/compress-pdf`} className="text-primary hover:underline">Compresser PDF</Link> - Réduire la taille du PDF</li>
               </ul>
             </>
           ) : (

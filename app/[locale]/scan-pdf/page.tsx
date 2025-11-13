@@ -305,8 +305,8 @@ export default function ScanPDFPage() {
               <h3>Outils Connexes</h3>
               <ul>
                 <li><Link href={`/${locale}/ocr`} className="text-primary hover:underline">OCR PDF</Link> - Extraire texte de scans PDF</li>
-                <li><Link href={`/${locale}/image-vers-pdf`} className="text-primary hover:underline">Image vers PDF</Link> - Convertir images en PDF</li>
-                <li><Link href={`/${locale}/compresser-pdf`} className="text-primary hover:underline">Compresser PDF</Link> - Réduire la taille du scan</li>
+                <li><Link href={`/${locale}/image-to-pdf`} className="text-primary hover:underline">Image vers PDF</Link> - Convertir images en PDF</li>
+                <li><Link href={`/${locale}/compress-pdf`} className="text-primary hover:underline">Compresser PDF</Link> - Réduire la taille du scan</li>
               </ul>
             </>
           ) : (

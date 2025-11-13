@@ -247,7 +247,7 @@ export default function PDFToImagesPage() {
 
               <h3>Outils Connexes</h3>
               <ul>
-                <li><Link href={`/${locale}/image-vers-pdf`} className="text-primary hover:underline">Images vers PDF</Link> - Convertir images en PDF</li>
+                <li><Link href={`/${locale}/image-to-pdf`} className="text-primary hover:underline">Images vers PDF</Link> - Convertir images en PDF</li>
                 <li><Link href={`/${locale}/merge-pdf`} className="text-primary hover:underline">Fusionner PDF</Link> - Combiner plusieurs PDF</li>
                 <li><Link href={`/${locale}/split-pdf`} className="text-primary hover:underline">Diviser PDF</Link> - Séparer un PDF</li>
               </ul>
