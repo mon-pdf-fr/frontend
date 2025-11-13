@@ -10,7 +10,7 @@ import {
   Trash2,
   X,
   AlertCircle,
-  CheckCircle
+  CheckCircle, RefreshCcw
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -198,7 +198,7 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
       {/* Header */}
       <div className="bg-card border-b p-4">
         <div className="flex items-center justify-between">
@@ -227,52 +227,23 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
 
         {/* Hidden canvas for capture */}
         <canvas ref={canvasRef} className="hidden" />
-      </div>
 
-      {/* Bottom Controls */}
-      <div className="bg-card border-t p-4 space-y-4">
-        {/* Capture Button */}
-        <div className="flex justify-center">
+        <div className="absolute bottom-8 w-full flex justify-center items-center gap-8">
           <Button
-            size="lg"
-            onClick={captureImage}
-            disabled={capturing || !stream}
-            className="rounded-full h-16 w-16 p-0"
+              size="icon"
+              onClick={captureImage}
+              disabled={capturing || !stream}
+              className={`rounded-full h-20 w-20 p-0 bg-primary text-white transition-transform duration-150 ${
+                  capturing ? "scale-95 bg-primary/70" : "hover:scale-105"
+              }`}
           >
             {capturing ? (
-              <Loader2 className="h-6 w-6 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin" />
             ) : (
-              <Camera className="h-6 w-6" />
+                <Camera className="h-8 w-8" />
             )}
           </Button>
         </div>
-
-        {/* Thumbnail Preview */}
-        {images.length > 0 && (
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {images.map((img, index) => (
-              <div key={index} className="relative flex-shrink-0">
-                <div className="w-16 h-20 rounded border overflow-hidden bg-muted">
-                  <img src={img} alt={`Page ${index + 1}`} className="w-full h-full object-cover" />
-                </div>
-                <Badge
-                  variant="secondary"
-                  className="absolute -top-2 -left-2 h-5 w-5 p-0 flex items-center justify-center text-xs"
-                >
-                  {index + 1}
-                </Badge>
-                <Button
-                  size="icon"
-                  variant="destructive"
-                  className="absolute -top-2 -right-2 h-5 w-5 p-0"
-                  onClick={() => removeImage(index)}
-                >
-                  <X className="h-3 w-3" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   )

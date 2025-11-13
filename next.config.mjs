@@ -10,6 +10,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/fr/scanner-pdf',
+        destination: '/fr/scan-pdf',
+      },
+    ];
+  },
 }
 
 export default withNextIntl(nextConfig)
