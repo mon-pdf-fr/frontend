@@ -34,7 +34,7 @@ export function PDFCompressTool() {
   const compressPDF = async (arrayBuffer: ArrayBuffer, qualityLevel: QualityLevel): Promise<Uint8Array> => {
     // Load PDF with pdfjs to extract and compress images
     const pdfjsLib = await import("pdfjs-dist")
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
 
     const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })
     const pdf = await loadingTask.promise

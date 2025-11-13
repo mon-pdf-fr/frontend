@@ -56,7 +56,7 @@ export function PDFCanvasEditor({ file, onTextElementsChange }: PDFCanvasEditorP
 
       try {
         const pdfjsLib = await import("pdfjs-dist")
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+        pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
 
         const arrayBuffer = await file.arrayBuffer()
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })

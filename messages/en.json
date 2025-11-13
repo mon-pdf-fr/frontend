@@ -177,6 +177,17 @@
       "title": "Scan PDF",
       "description": "Scan documents with your phone camera and create PDFs"
     },
+    "pdfToWord": {
+      "title": "PDF to Word",
+      "description": "Convert PDF to editable Word document (DOCX)",
+      "scannedDialogTitle": "Scanned Images Detected",
+      "scannedDialogDescription": "Your PDF contains {count} page(s) with scanned images (no extractable text). How would you like to handle these pages?",
+      "keepImagesTitle": "Keep Images",
+      "keepImagesDescription": "Embed the scanned images directly in the Word document. Best for preserving the original appearance.",
+      "useOcrTitle": "Use OCR (Extract Text)",
+      "useOcrDescription": "Convert scanned images to editable text using OCR. Processing may take a few moments.",
+      "dialogNote": "You can change this later by converting the file again"
+    },
     "ocr": {
       "title": "PDF OCR & Data Extraction",
       "description": "Extract text from scanned PDFs and detect tables and data",

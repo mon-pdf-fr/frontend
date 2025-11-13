@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import * as pdfjs from "pdfjs-dist";
 
 interface PDFPageSelectorProps {
   file: File
@@ -34,7 +35,7 @@ export function PDFPageSelector({
         const pdfjsLib = await import("pdfjs-dist")
 
         // Configure PDF.js worker - use unpkg CDN with correct path
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+        pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
 
         const arrayBuffer = await file.arrayBuffer()
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })

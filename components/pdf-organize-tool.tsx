@@ -7,6 +7,7 @@ import { Upload, GripVertical, X, RotateCcw } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import * as pdfjs from "pdfjs-dist";
 
 interface PageData {
   pageNumber: number
@@ -46,7 +47,7 @@ export function PDFOrganizeTool() {
     setIsLoading(true)
     try {
       const pdfjsLib = await import("pdfjs-dist")
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+      pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
 
       const arrayBuffer = await pdfFile.arrayBuffer()
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise

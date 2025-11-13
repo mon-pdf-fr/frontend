@@ -16,6 +16,10 @@ const nextConfig = {
         source: '/fr/scanner-pdf',
         destination: '/fr/scan-pdf',
       },
+      {
+        source: '/fr/pdf-vers-word',
+        destination: '/fr/pdf-to-word',
+      },
     ];
   },
 }

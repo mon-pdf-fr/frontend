@@ -177,6 +177,17 @@
       "title": "Scanner PDF",
       "description": "Scannez des documents avec l'appareil photo de votre téléphone et créez des PDF"
     },
+    "pdfToWord": {
+      "title": "PDF vers Word",
+      "description": "Convertir PDF en document Word éditable (DOCX)",
+      "scannedDialogTitle": "Images numérisées détectées",
+      "scannedDialogDescription": "Votre PDF contient {count} page(s) avec des images numérisées (aucun texte extractible). Comment souhaitez-vous traiter ces pages ?",
+      "keepImagesTitle": "Conserver les images",
+      "keepImagesDescription": "Intégrer les images numérisées directement dans le document Word. Idéal pour préserver l'apparence originale.",
+      "useOcrTitle": "Utiliser l'OCR (Extraire le texte)",
+      "useOcrDescription": "Convertir les images numérisées en texte éditable à l'aide de l'OCR. Le traitement peut prendre quelques instants.",
+      "dialogNote": "Vous pouvez modifier ce choix plus tard en reconvertissant le fichier"
+    },
     "ocr": {
       "title": "OCR PDF & Extraction de Données",
       "description": "Extraire le texte des PDF scannés et détecter les tableaux et données",

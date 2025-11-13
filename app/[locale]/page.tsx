@@ -1,6 +1,6 @@
 "use client"
 
-import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash, Scan} from "lucide-react"
+import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash, Scan, FileType} from "lucide-react"
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
@@ -80,6 +80,14 @@ export default function Home() {
       title: t('tools.scanPdf.title'),
       description: t('tools.scanPdf.description'),
       isBeta: true,
+    },
+    {
+      id: "pdf-to-word",
+      path: "pdf-to-word",
+      icon: FileType,
+      title: t('tools.pdfToWord.title'),
+      description: t('tools.pdfToWord.description'),
+      isBeta: false,
     },
     {
       id: "ocr",
