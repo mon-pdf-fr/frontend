@@ -36,7 +36,7 @@ export default function ScanPDFPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "Scanner PDF" : "Scan PDF",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'scanner-pdf' : 'scan-pdf'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'scan-pdf' : 'scan-pdf'}`
     }]
   }
 

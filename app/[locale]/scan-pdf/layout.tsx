@@ -35,17 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: locale === 'fr' ? '/fr/scanner-pdf' : '/en/scan-pdf',
+      canonical: locale === 'fr' ? '/fr/scan-pdf' : '/en/scan-pdf',
       languages: {
         'en': '/en/scan-pdf',
-        'fr': '/fr/scanner-pdf',
+        'fr': '/fr/scan-pdf',
         'x-default': '/en/scan-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: locale === 'fr' ? '/fr/scanner-pdf' : '/en/scan-pdf',
+      url: locale === 'fr' ? '/fr/scan-pdf' : '/en/scan-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

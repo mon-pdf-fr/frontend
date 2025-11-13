@@ -35,17 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: locale === 'fr' ? '/fr/fusionner-pdf' : '/en/merge-pdf',
+      canonical: locale === 'fr' ? '/fr/merge-pdf' : '/en/merge-pdf',
       languages: {
         'en': '/en/merge-pdf',
-        'fr': '/fr/fusionner-pdf',
+        'fr': '/fr/merge-pdf',
         'x-default': '/en/merge-pdf',
       },
     },
     openGraph: {
       title,
       description,
-      url: locale === 'fr' ? '/fr/fusionner-pdf' : '/en/merge-pdf',
+      url: locale === 'fr' ? '/fr/merge-pdf' : '/en/merge-pdf',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

@@ -315,7 +315,7 @@ export default function OCRPage() {
               <h3>Outils Connexes</h3>
               <ul>
                 <li><Link href={`/${locale}/scanner-pdf`} className="text-primary hover:underline">Scanner PDF</Link> - Numériser documents en PDF</li>
-                <li><Link href={`/${locale}/pdf-vers-images`} className="text-primary hover:underline">PDF vers Images</Link> - Convertir PDF en images</li>
+                <li><Link href={`/${locale}/pdf-to-images`} className="text-primary hover:underline">PDF vers Images</Link> - Convertir PDF en images</li>
                 <li><Link href={`/${locale}/merge-pdf`} className="text-primary hover:underline">Fusionner PDF</Link> - Combiner plusieurs PDF</li>
               </ul>
             </>

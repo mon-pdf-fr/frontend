@@ -328,7 +328,7 @@ export default function SplitPDFPage() {
               <p>Découvrez nos autres outils PDF gratuits :</p>
               <ul>
                 <li><Link href={`/${locale}/merge-pdf`} className="text-primary hover:underline">Fusionner PDF</Link> - Combinez plusieurs fichiers PDF en un seul</li>
-                <li><Link href={`/${locale}/comprimer-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
+                <li><Link href={`/${locale}/compress-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
                 <li><Link href={`/${locale}/organize-pdf`} className="text-primary hover:underline">Organiser PDF</Link> - Réorganisez, supprimez ou faites pivoter les pages</li>
                 <li><Link href={`/${locale}/page-numbering`} className="text-primary hover:underline">Numéroter PDF</Link> - Ajoutez des numéros de page à vos documents</li>
               </ul>

@@ -35,17 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mon-pdf.fr'),
     alternates: {
-      canonical: locale === 'fr' ? '/fr/pdf-vers-images' : '/en/pdf-to-images',
+      canonical: locale === 'fr' ? '/fr/pdf-to-images' : '/en/pdf-to-images',
       languages: {
         'en': '/en/pdf-to-images',
-        'fr': '/fr/pdf-vers-images',
+        'fr': '/fr/pdf-to-images',
         'x-default': '/en/pdf-to-images',
       },
     },
     openGraph: {
       title,
       description,
-      url: locale === 'fr' ? '/fr/pdf-vers-images' : '/en/pdf-to-images',
+      url: locale === 'fr' ? '/fr/pdf-to-images' : '/en/pdf-to-images',
       siteName: t('header.title'),
       locale: locale,
       type: 'website',

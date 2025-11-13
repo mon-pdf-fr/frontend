@@ -13,7 +13,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/fr/scanner-pdf',
+        source: '/fr/scan-pdf',
         destination: '/fr/scan-pdf',
       },
       {

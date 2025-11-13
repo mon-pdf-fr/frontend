@@ -36,7 +36,7 @@ export default function PDFToImagesPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "PDF vers Images" : "PDF to Images",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'pdf-vers-images' : 'pdf-to-images'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'pdf-to-images' : 'pdf-to-images'}`
     }]
   }
 

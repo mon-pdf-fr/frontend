@@ -40,7 +40,7 @@ export default function MergePDFPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "Fusionner PDF" : "Merge PDF",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'fusionner-pdf' : 'merge-pdf'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'merge-pdf' : 'merge-pdf'}`
     }]
   }
 
@@ -319,7 +319,7 @@ export default function MergePDFPage() {
               <p>Découvrez nos autres outils PDF gratuits :</p>
               <ul>
                 <li><Link href={`/${locale}/split-pdf`} className="text-primary hover:underline">Diviser PDF</Link> - Séparez un PDF en plusieurs fichiers</li>
-                <li><Link href={`/${locale}/comprimer-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
+                <li><Link href={`/${locale}/compress-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
                 <li><Link href={`/${locale}/organize-pdf`} className="text-primary hover:underline">Organiser PDF</Link> - Réorganisez, supprimez ou faites pivoter les pages</li>
                 <li><Link href={`/${locale}/page-numbering`} className="text-primary hover:underline">Numéroter PDF</Link> - Ajoutez des numéros de page à vos documents</li>
               </ul>

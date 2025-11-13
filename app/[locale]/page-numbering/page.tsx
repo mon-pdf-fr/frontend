@@ -40,7 +40,7 @@ export default function PageNumberingPage() {
       "@type": "ListItem",
       "position": 2,
       "name": locale === 'fr' ? "Numéroter PDF" : "Number PDF",
-      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'page-numbering' : 'number-pdf'}`
+      "item": `https://mon-pdf.fr/${locale}/${locale === 'fr' ? 'page-numbering' : 'page-numbering'}`
     }]
   }
 
@@ -329,7 +329,7 @@ export default function PageNumberingPage() {
                 <li><Link href={`/${locale}/merge-pdf`} className="text-primary hover:underline">Fusionner PDF</Link> - Combinez plusieurs fichiers PDF en un seul</li>
                 <li><Link href={`/${locale}/split-pdf`} className="text-primary hover:underline">Diviser PDF</Link> - Séparez un PDF en plusieurs fichiers</li>
                 <li><Link href={`/${locale}/organize-pdf`} className="text-primary hover:underline">Organiser PDF</Link> - Réorganisez, supprimez ou faites pivoter les pages</li>
-                <li><Link href={`/${locale}/comprimer-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
+                <li><Link href={`/${locale}/compress-pdf`} className="text-primary hover:underline">Comprimer PDF</Link> - Réduisez la taille de vos fichiers PDF</li>
               </ul>
             </>
           ) : (
