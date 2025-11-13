@@ -288,7 +288,7 @@ export default function SplitPDFPage() {
                 <li>Utilisez des noms de fichiers descriptifs pour vos documents divisés</li>
                 <li>Pour les documents volumineux, envisagez de diviser par chapitres ou sections logiques</li>
                 <li>Vérifiez que les signets et la table des matières sont préservés après la division</li>
-                <li>Combinez avec notre outil de fusion PDF pour réorganiser les pages si nécessaire</li>
+                <li>Combinez avec notre <Link href={`/${locale}/fusionner-pdf`} className="text-primary hover:underline">outil de fusion PDF</Link> pour réorganiser les pages si nécessaire</li>
               </ul>
 
               <h3>Foire Aux Questions (FAQ)</h3>
@@ -385,7 +385,7 @@ export default function SplitPDFPage() {
                 <li>Use descriptive file names for your split documents</li>
                 <li>For large documents, consider splitting by chapters or logical sections</li>
                 <li>Verify that bookmarks and table of contents are preserved after splitting</li>
-                <li>Combine with our merge PDF tool to rearrange pages if needed</li>
+                <li>Combine with our <Link href={`/${locale}/merge`} className="text-primary hover:underline">merge PDF tool</Link> to rearrange pages if needed</li>
               </ul>
 
               <h3>Frequently Asked Questions (FAQ)</h3>
