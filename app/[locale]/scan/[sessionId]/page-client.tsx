@@ -219,37 +219,37 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative">
-      {/* Header */}
-      <div className="bg-card border-b p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            <span className="font-medium">Connected</span>
+      <div className="relative min-h-screen bg-black">
+        {/* Full-screen video */}
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+          <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="w-full h-full object-contain bg-black"
+          />
+          {/* Overlay frame */}
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div className="border-2 border-white/40 rounded-xl w-[85%] h-[70%]" />
           </div>
-          <Badge variant="secondary">{images.length} pages</Badge>
-        </div>
-      </div>
-
-      {/* Camera View */}
-      <div className="flex-1 relative bg-black">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full h-full object-cover"
-        />
-
-        {/* Capture overlay */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-4 border-2 border-white/50 rounded-lg" />
+          {/* Hidden canvas */}
+          <canvas ref={canvasRef} className="hidden" />
         </div>
 
-        {/* Hidden canvas for capture */}
-        <canvas ref={canvasRef} className="hidden" />
+        {/* Header (overlayed on top) */}
+        <div className="absolute top-0 left-0 right-0 z-20 bg-card/80 backdrop-blur-md border-b p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-500" />
+              <span className="font-medium">Connected</span>
+            </div>
+            <Badge variant="secondary">{images.length} pages</Badge>
+          </div>
+        </div>
 
-        <div className="absolute bottom-8 w-full flex justify-center items-center gap-8">
+        {/* Bottom controls (overlayed too) */}
+        <div className="absolute bottom-8 w-full flex justify-center items-center z-20">
           <Button
               size="icon"
               onClick={captureImage}
@@ -266,6 +266,5 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
           </Button>
         </div>
       </div>
-    </div>
   )
 }
