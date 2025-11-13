@@ -173,6 +173,10 @@
       "successDescription": "Successfully converted {count} pages to images.",
       "downloadSuccess": "Downloaded successfully"
     },
+    "scanPdf": {
+      "title": "Scan PDF",
+      "description": "Scan documents with your phone camera and create PDFs"
+    },
     "ocr": {
       "title": "PDF OCR & Data Extraction",
       "description": "Extract text from scanned PDFs and detect tables and data",

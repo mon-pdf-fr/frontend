@@ -1,6 +1,6 @@
 "use client"
 
-import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash} from "lucide-react"
+import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash, Scan} from "lucide-react"
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
@@ -72,6 +72,14 @@ export default function Home() {
       title: t('tools.pageNumbering.title'),
       description: t('tools.pageNumbering.description'),
       isBeta: false,
+    },
+    {
+      id: "scan-pdf",
+      path: "scan-pdf",
+      icon: Scan,
+      title: t('tools.scanPdf.title'),
+      description: t('tools.scanPdf.description'),
+      isBeta: true,
     },
     {
       id: "ocr",

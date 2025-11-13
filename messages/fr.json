@@ -173,6 +173,10 @@
       "successDescription": "{count} pages converties en images avec succès.",
       "downloadSuccess": "Téléchargement réussi"
     },
+    "scanPdf": {
+      "title": "Scanner PDF",
+      "description": "Scannez des documents avec l'appareil photo de votre téléphone et créez des PDF"
+    },
     "ocr": {
       "title": "OCR PDF & Extraction de Données",
       "description": "Extraire le texte des PDF scannés et détecter les tableaux et données",
