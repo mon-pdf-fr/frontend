@@ -17,6 +17,19 @@ export default function BlogPage() {
 
   const articles = [
     {
+      slug: 'how-to-scan-documents-to-pdf',
+      title: locale === 'fr'
+        ? 'Comment Scanner des Documents en PDF : Guide Complet 2025'
+        : 'How to Scan Documents to PDF: Complete Guide 2025',
+      description: locale === 'fr'
+        ? 'Découvrez comment scanner vos documents en PDF directement depuis votre smartphone ou ordinateur. Guide complet avec astuces et meilleures pratiques.'
+        : 'Learn how to scan your documents to PDF directly from your smartphone or computer. Complete guide with tips and best practices.',
+      date: locale === 'fr' ? '17 Novembre 2025' : 'November 17, 2025',
+      readTime: locale === 'fr' ? '6 min de lecture' : '6 min read',
+      category: locale === 'fr' ? 'Tutoriels' : 'Tutorials',
+      image: '/blog/scan-pdf.png'
+    },
+    {
       slug: 'how-to-merge-pdf-online-free',
       title: locale === 'fr'
         ? 'Comment Fusionner des PDF en Ligne Gratuitement : Guide Complet 2025'
