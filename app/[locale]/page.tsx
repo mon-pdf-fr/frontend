@@ -88,7 +88,7 @@ export default function Home() {
       icon: FileType,
       title: t('tools.pdfToWord.title'),
       description: t('tools.pdfToWord.description'),
-      isBeta: true,
+      isBeta: false,
     },
     {
       id: "ocr",
