@@ -1,14 +1,14 @@
 "use client"
 
 import { useTranslations } from 'next-intl'
-import { PageNumberingTool } from "@/components/page-numbering-tool"
 import { Button } from "@/components/ui/button"
 import { useRouter, usePathname } from 'next/navigation'
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
 import Link from 'next/link'
 import Script from 'next/script'
-import {SiteFooter} from "@/components/site-footer";
+import {SiteFooter} from "@/components/site-footer"
+import { PageNumberingTool } from "@/components/page-numbering-tool"
 
 export default function PageNumberingPage() {
   const t = useTranslations()
@@ -231,7 +231,7 @@ export default function PageNumberingPage() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <PageNumberingTool />
           </div>
 

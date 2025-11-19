@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, lazy, Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,7 +28,9 @@ import {
 
 import { addPageNumbers, NumberPosition, NumberStyle, PageNumberingOptions } from '@/lib/pdf/page-numbering';
 import { PageNumberPositionSelector } from '@/components/page-number-position-selector';
-import { PDFViewer } from '@/components/pdf-viewer';
+
+// Lazy load PDF viewer to avoid SSR issues
+const PDFViewer = lazy(() => import('@/components/pdf-viewer').then(mod => ({ default: mod.PDFViewer })));
 
 type ProcessingStage = 'idle' | 'processing' | 'complete' | 'error';
 
@@ -41,6 +43,7 @@ interface ProcessingProgress {
 }
 
 export function PageNumberingTool() {
+  const [showPdfViewer, setShowPdfViewer] = useState(false);
   const t = useTranslations();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -87,6 +90,9 @@ export function PageNumberingTool() {
 
   const handleAddNumbers = async () => {
     if (!file) return;
+
+    // Show PDF viewer when user clicks the button
+    setShowPdfViewer(true);
 
     try {
       setProgress({
@@ -170,6 +176,7 @@ export function PageNumberingTool() {
     setProgress({ stage: 'idle', percentage: 0, message: '' });
     setProcessedPdf(null);
     setError(null);
+    setShowPdfViewer(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -189,9 +196,9 @@ export function PageNumberingTool() {
   const previewText = `${prefix}${style === 'numeric' ? '1' : style === 'roman-lower' ? 'i' : style === 'roman-upper' ? 'I' : style === 'alpha-lower' ? 'a' : 'A'}${suffix}`;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Left Column - Toolbox (smaller) */}
-      <Card className="lg:col-span-1">
+    <div className={`grid grid-cols-1 gap-6 transition-all duration-500 ${showPdfViewer ? 'lg:grid-cols-3' : ''}`}>
+      {/* Left Column - Toolbox */}
+      <Card className={showPdfViewer ? 'lg:col-span-1' : ''}>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Hash className="h-5 w-5" />
@@ -427,10 +434,21 @@ export function PageNumberingTool() {
         </CardContent>
       </Card>
 
-      {/* Right Column - PDF Viewer (bigger) */}
-      <div className="lg:col-span-2">
-        <PDFViewer file={processedPdf} className="h-[800px]" />
-      </div>
+      {/* Right Column - PDF Viewer (bigger) - Only show after clicking Add Page Numbers */}
+      {showPdfViewer && (
+        <div className="lg:col-span-2 animate-in fade-in slide-in-from-right-4 duration-500">
+          <Suspense fallback={
+            <div className="flex items-center justify-center h-[800px] border-2 border-dashed border-border rounded-lg">
+              <div className="text-center">
+                <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">Loading PDF viewer...</p>
+              </div>
+            </div>
+          }>
+            <PDFViewer file={processedPdf} className="h-[800px]" />
+          </Suspense>
+        </div>
+      )}
     </div>
   );
 }
