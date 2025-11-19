@@ -30,6 +30,19 @@ export default function BlogPage() {
       image: '/blog/scan-pdf.png'
     },
     {
+      slug: 'how-to-split-pdf-online-free',
+      title: locale === 'fr'
+        ? 'Comment Diviser un PDF en Ligne Gratuitement : Guide Complet 2025'
+        : 'How to Split PDF Online Free: Complete Guide 2025',
+      description: locale === 'fr'
+        ? 'Découvrez comment diviser un fichier PDF en plusieurs documents ou extraire des pages spécifiques en ligne gratuitement. Guide étape par étape avec les meilleures pratiques.'
+        : 'Learn how to split a PDF file into multiple documents or extract specific pages online for free. Step-by-step guide with best practices.',
+      date: locale === 'fr' ? '19 Novembre 2025' : 'November 19, 2025',
+      readTime: locale === 'fr' ? '5 min de lecture' : '5 min read',
+      category: locale === 'fr' ? 'Tutoriels' : 'Tutorials',
+      image: '/blog/split-pdf-online.png'
+    },
+    {
       slug: 'how-to-merge-pdf-online-free',
       title: locale === 'fr'
         ? 'Comment Fusionner des PDF en Ligne Gratuitement : Guide Complet 2025'

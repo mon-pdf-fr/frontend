@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const blogArticles = [
+    'how-to-scan-documents-to-pdf',
+    'how-to-split-pdf-online-free',
     'how-to-merge-pdf-online-free',
   ]
 
