@@ -2,7 +2,7 @@
 
 import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash, Scan, FileType} from "lucide-react"
 import { useTranslations } from 'next-intl'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { PDFToolCard } from "@/components/pdf-tool-card"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
@@ -10,12 +10,7 @@ import { SiteFooter } from "@/components/site-footer"
 
 export default function Home() {
   const t = useTranslations()
-  const router = useRouter()
   const pathname = usePathname()
-
-  const handleToolSelect = (toolPath: string) => {
-    router.push(`${pathname}/${toolPath}`)
-  }
 
   const tools = [
     {
@@ -130,7 +125,7 @@ export default function Home() {
                 icon={tool.icon}
                 title={tool.title}
                 description={tool.description}
-                onClick={() => handleToolSelect(tool.path)}
+                href={`${pathname}/${tool.path}`}
                 active={false}
                 isBeta={tool.isBeta}
               />
