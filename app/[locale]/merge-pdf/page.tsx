@@ -7,8 +7,9 @@ import { useRouter, usePathname } from 'next/navigation'
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
 import Link from 'next/link'
+import Image from 'next/image'
 import Script from 'next/script'
-import {SiteFooter} from "@/components/site-footer";
+import {SiteFooter} from "@/components/site-footer"
 
 export default function MergePDFPage() {
   const t = useTranslations()
@@ -153,19 +154,19 @@ export default function MergePDFPage() {
   return (
     <>
       {/* Structured Data */}
-      <Script id="organization-schema" type="application/ld+json">
+      <Script id="organization-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(organizationSchema)}
       </Script>
-      <Script id="breadcrumb-schema" type="application/ld+json">
+      <Script id="breadcrumb-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(breadcrumbSchema)}
       </Script>
-      <Script id="howto-schema" type="application/ld+json">
+      <Script id="howto-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(howToSchema)}
       </Script>
-      <Script id="software-schema" type="application/ld+json">
+      <Script id="software-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(softwareSchema)}
       </Script>
-      <Script id="faq-schema" type="application/ld+json">
+      <Script id="faq-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(faqSchema)}
       </Script>
 
@@ -174,15 +175,16 @@ export default function MergePDFPage() {
           <div className="container mx-auto px-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Link href={`/${locale}`}>
-                <img
+                <Image
                   src="/logo.png"
                   alt={locale === 'fr'
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
                     : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
                   }
                   className="h-30 w-30"
-                  width="120"
-                  height="120"
+                  width={120}
+                  height={120}
+                  priority
                 />
               </Link>
             </div>

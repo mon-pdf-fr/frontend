@@ -20,16 +20,19 @@ export async function generateMetadata({
   return {
     title,
     description,
+    metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: `${baseUrl}/${locale}/blog`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${baseUrl}/${l}/blog`])
-      ),
+      canonical: `/${locale}/blog`,
+      languages: {
+        'en': '/en/blog',
+        'fr': '/fr/blog',
+        'x-default': '/en/blog',
+      },
     },
     openGraph: {
       title,
       description,
-      url: `${baseUrl}/${locale}/blog`,
+      url: `/${locale}/blog`,
       siteName: 'Mon PDF',
       locale: locale,
       type: 'website',
@@ -38,6 +41,17 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   }
 }

@@ -6,22 +6,15 @@ import { useRouter, usePathname } from 'next/navigation'
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { BookmarkButton } from "@/components/bookmark-button"
 import Link from 'next/link'
+import Image from 'next/image'
 import Script from 'next/script'
 import {SiteFooter} from "@/components/site-footer"
-import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 // Lazy load the PDFSplitTool to avoid SSR issues with pdf.js
 const PDFSplitTool = dynamic(() => import("@/components/pdf-split-tool").then(mod => ({ default: mod.PDFSplitTool })), {
   ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center py-12">
-      <div className="text-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
-        <p className="text-sm text-muted-foreground">Loading tool...</p>
-      </div>
-    </div>
-  )
+  loading: () => null // Remove loading state to prevent LCP delay
 })
 
 export default function SplitPDFPage() {
@@ -166,20 +159,20 @@ export default function SplitPDFPage() {
 
   return (
     <>
-      {/* Structured Data */}
-      <Script id="organization-schema" type="application/ld+json">
+      {/* Structured Data - loaded after LCP with strategy afterInteractive */}
+      <Script id="organization-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(organizationSchema)}
       </Script>
-      <Script id="breadcrumb-schema" type="application/ld+json">
+      <Script id="breadcrumb-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(breadcrumbSchema)}
       </Script>
-      <Script id="howto-schema" type="application/ld+json">
+      <Script id="howto-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(howToSchema)}
       </Script>
-      <Script id="software-schema" type="application/ld+json">
+      <Script id="software-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(softwareSchema)}
       </Script>
-      <Script id="faq-schema" type="application/ld+json">
+      <Script id="faq-schema" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(faqSchema)}
       </Script>
 
@@ -188,15 +181,16 @@ export default function SplitPDFPage() {
           <div className="container mx-auto px-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Link href={`/${locale}`}>
-                <img
+                <Image
                   src="/logo.png"
                   alt={locale === 'fr'
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
                     : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
                   }
                   className="h-30 w-30"
-                  width="120"
-                  height="120"
+                  width={120}
+                  height={120}
+                  priority
                 />
               </Link>
             </div>

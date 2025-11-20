@@ -1,18 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useTranslations } from 'next-intl'
-import { PDFDocument } from "pdf-lib"
-import { Upload, GripVertical, X, RotateCcw } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import {useState} from "react"
+import {useTranslations} from 'next-intl'
+import {PDFDocument} from "pdf-lib"
+import {GripVertical, RotateCcw, Upload, X} from "lucide-react"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
+import {Button} from "@/components/ui/button"
+import {Alert, AlertDescription} from "@/components/ui/alert"
 import * as pdfjs from "pdfjs-dist";
 
 interface PageData {
   pageNumber: number
-  imageUrl: string
+  imageUrl: string | null // Allow null for lazy loading
   isDeleted: boolean
+  isLoading?: boolean
 }
 
 export function PDFOrganizeTool() {
@@ -52,38 +53,84 @@ export function PDFOrganizeTool() {
       const arrayBuffer = await pdfFile.arrayBuffer()
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise
 
-      const loadedPages: PageData[] = []
-
+      // Initialize pages with placeholders - progressive loading
+      const initialPages: PageData[] = []
       for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i)
-        const viewport = page.getViewport({ scale: 1.5 })
-
-        const canvas = document.createElement("canvas")
-        const context = canvas.getContext("2d")
-        canvas.width = viewport.width
-        canvas.height = viewport.height
-
-        if (context) {
-          await page.render({
-            canvasContext: context,
-            viewport: viewport,
-          }).promise
-
-          const imageUrl = canvas.toDataURL()
-          loadedPages.push({
-            pageNumber: i,
-            imageUrl,
-            isDeleted: false,
-          })
-        }
+        initialPages.push({
+          pageNumber: i,
+          imageUrl: null, // Lazy load images
+          isDeleted: false,
+          isLoading: true,
+        })
       }
 
-      setPages(loadedPages)
+      setPages(initialPages)
+      setIsLoading(false) // Mark initial load as complete
+
+      // Batch render first 8 pages immediately for better UX
+      const batchSize = 8
+      const firstBatch = Math.min(batchSize, pdf.numPages)
+
+      for (let i = 1; i <= firstBatch; i++) {
+        renderPage(pdf, i, i - 1)
+      }
+
+      // Lazy render remaining pages
+      for (let i = firstBatch + 1; i <= pdf.numPages; i++) {
+        // Delay to avoid blocking main thread
+        await new Promise(resolve => setTimeout(resolve, 50))
+        renderPage(pdf, i, i - 1)
+      }
+
     } catch (err) {
       console.error("Error loading PDF:", err)
       setError("Failed to load PDF. Please try again.")
-    } finally {
       setIsLoading(false)
+    }
+  }
+
+  const renderPage = async (pdf: any, pageNum: number, index: number) => {
+    try {
+      const page = await pdf.getPage(pageNum)
+      const viewport = page.getViewport({ scale: 1.0 }) // Reduced from 1.5x to 1.0x for faster rendering
+
+      const canvas = document.createElement("canvas")
+      const context = canvas.getContext("2d")
+      canvas.width = viewport.width
+      canvas.height = viewport.height
+
+      if (context) {
+        await page.render({
+          canvasContext: context,
+          viewport: viewport,
+        }).promise
+
+        const imageUrl = canvas.toDataURL("image/jpeg", 0.85) // Use JPEG with 85% quality instead of PNG
+
+        setPages(prev => {
+          const newPages = [...prev]
+          if (newPages[index]) {
+            newPages[index] = {
+              ...newPages[index],
+              imageUrl,
+              isLoading: false,
+            }
+          }
+          return newPages
+        })
+      }
+    } catch (err) {
+      console.error(`Error rendering page ${pageNum}:`, err)
+      setPages(prev => {
+        const newPages = [...prev]
+        if (newPages[index]) {
+          newPages[index] = {
+            ...newPages[index],
+            isLoading: false,
+          }
+        }
+        return newPages
+      })
     }
   }
 
@@ -255,11 +302,22 @@ export function PDFOrganizeTool() {
                         )}
                       </button>
 
-                      <img
-                        src={page.imageUrl}
-                        alt={`Page ${page.pageNumber}`}
-                        className="w-full h-auto"
-                      />
+                      {page.isLoading ? (
+                        <div className="w-full aspect-[8.5/11] bg-muted flex items-center justify-center">
+                          <div className="text-sm text-muted-foreground">Loading...</div>
+                        </div>
+                      ) : page.imageUrl ? (
+                        <img
+                          src={page.imageUrl}
+                          alt={`Page ${page.pageNumber}`}
+                          className="w-full h-auto"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full aspect-[8.5/11] bg-muted flex items-center justify-center">
+                          <div className="text-sm text-muted-foreground">Error</div>
+                        </div>
+                      )}
 
                       {!page.isDeleted && (
                         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">

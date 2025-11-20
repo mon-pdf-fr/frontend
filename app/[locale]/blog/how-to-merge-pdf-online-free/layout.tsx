@@ -26,16 +26,19 @@ export async function generateMetadata({
     description,
     keywords,
     authors: [{ name: 'Mon PDF' }],
+    metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: `${baseUrl}/${locale}/blog/how-to-merge-pdf-online-free`,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${baseUrl}/${l}/blog/how-to-merge-pdf-online-free`])
-      ),
+      canonical: `/${locale}/blog/how-to-merge-pdf-online-free`,
+      languages: {
+        'en': '/en/blog/how-to-merge-pdf-online-free',
+        'fr': '/fr/blog/how-to-merge-pdf-online-free',
+        'x-default': '/en/blog/how-to-merge-pdf-online-free',
+      },
     },
     openGraph: {
       title,
       description,
-      url: `${baseUrl}/${locale}/blog/how-to-merge-pdf-online-free`,
+      url: `/${locale}/blog/how-to-merge-pdf-online-free`,
       siteName: 'Mon PDF',
       locale: locale,
       type: 'article',
