@@ -1,16 +1,30 @@
 "use client"
 
-import {Scissors, Combine, FileImage, GripVertical, FileDown, Package, SendToBack, FileText, ImageIcon, Hash, Scan, FileType} from "lucide-react"
-import { useTranslations } from 'next-intl'
-import { usePathname } from 'next/navigation'
-import { PDFToolCard } from "@/components/pdf-tool-card"
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
-import { SiteFooter } from "@/components/site-footer"
+import {
+  Combine,
+  FileImage,
+  FileText,
+  FileType,
+  Hash,
+  ImageIcon,
+  Package,
+  Scan,
+  Scissors,
+  SendToBack
+} from "lucide-react"
+import {useTranslations} from 'next-intl'
+import {usePathname} from 'next/navigation'
+import {PDFToolCard} from "@/components/pdf-tool-card"
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
+import {SiteFooter} from "@/components/site-footer"
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations()
   const pathname = usePathname()
+  const locale = pathname.split('/')[1] || 'en'
 
   const tools = [
     {
@@ -100,7 +114,19 @@ export default function Home() {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Logo" className="h-30 w-30" />
+            <Link href={`/${locale}`}>
+              <Image
+                  src="/logo.png"
+                  alt={locale === 'fr'
+                      ? 'Mon PDF - Outils PDF Gratuits en Ligne'
+                      : 'Mon PDF - Free Online PDF Tools'
+                  }
+                  className="h-30 w-30"
+                  priority
+                  width={120}
+                  height={120}
+              />
+            </Link>
           </div>
           <div className="flex items-center gap-3">
             <BookmarkButton />

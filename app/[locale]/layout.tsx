@@ -1,16 +1,17 @@
 // app/[locale]/layout.tsx
 import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import type {Metadata} from "next"
+import {Geist, Geist_Mono} from "next/font/google"
 import Script from "next/script"
-import { Analytics } from "@vercel/analytics/next"
-import { NextIntlClientProvider } from "next-intl"
-import { getMessages, getTranslations } from "next-intl/server"
-import { Toaster } from "sonner"
+import {Analytics} from "@vercel/analytics/next"
+import {NextIntlClientProvider} from "next-intl"
+import {getMessages, getTranslations} from "next-intl/server"
+import {Toaster} from "sonner"
 import StoreProvider from "@/components/providers/store-provider"
-import { notFound } from "next/navigation"
-import { locales } from "@/i18n"
+import {notFound} from "next/navigation"
+import {locales} from "@/i18n"
 import "../globals.css"
+import {SpeedInsights} from "@vercel/speed-insights/next";
 
 const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -165,6 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <Toaster position="top-right" richColors closeButton />
       <Analytics />
+      <SpeedInsights/>
       </body>
       </html>
   )

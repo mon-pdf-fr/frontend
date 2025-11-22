@@ -1,16 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Star, Command, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useTranslations } from 'next-intl'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import {useEffect, useState} from "react"
+import {Star} from "lucide-react"
+import {Button} from "@/components/ui/button"
+import {useTranslations} from 'next-intl'
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "@/components/ui/dialog"
 
 interface BrowserInfo {
   name: string
@@ -94,7 +88,7 @@ export function BookmarkButton() {
         variant="outline"
         size="sm"
         onClick={handleBookmark}
-        className="gap-2"
+        className="gap-2 cursor-pointer"
       >
         <Star className="h-4 w-4" />
         <span className="hidden sm:inline">{t('bookmark.button')}</span>

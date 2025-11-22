@@ -227,7 +227,7 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
   return (
       <div className="relative min-h-screen bg-black">
         {/* Full-screen video */}
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
           <div className="relative w-full h-full max-h-screen overflow-hidden bg-black">
             <video
                 ref={videoRef}
