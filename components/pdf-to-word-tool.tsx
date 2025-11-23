@@ -8,7 +8,8 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import {Progress} from '@/components/ui/progress'
 import {Alert, AlertDescription} from '@/components/ui/alert'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog'
-import {AlertCircle, FileText, FileType, Image as ImageIcon, Loader2, Scan, Upload} from 'lucide-react'
+import {Badge} from '@/components/ui/badge'
+import {AlertCircle, CheckCircle2, Download, FileText, FileType, Image as ImageIcon, Loader2, Scan, Upload, X} from 'lucide-react'
 import {toast} from 'sonner'
 import * as pdfjsLib from 'pdfjs-dist'
 import {
@@ -29,6 +30,17 @@ import {createOCREngine} from '@/lib/ocr/ocr-engine'
 // Configure PDF.js worker
 if (typeof window !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`
+}
+
+interface FileItem {
+  id: string
+  file: File
+  status: 'pending' | 'converting' | 'completed' | 'error'
+  downloadUrl?: string
+  error?: string
+  progress?: number
+  extractedPages?: ExtractedPage[]
+  conversionMethod?: 'text' | 'image' | 'ocr'
 }
 
 interface TextItem {
@@ -60,25 +72,28 @@ interface ExtractedPage {
 
 export function PDFToWordTool() {
   const t = useTranslations()
-  const [file, setFile] = useState<File | null>(null)
-  const [converting, setConverting] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const [error, setError] = useState<string | null>(null)
-  const [extractedPages, setExtractedPages] = useState<ExtractedPage[]>([])
-  const [showPreview, setShowPreview] = useState(false)
+  const [files, setFiles] = useState<FileItem[]>([])
+  const [currentFileId, setCurrentFileId] = useState<string | null>(null)
   const [showScannedDialog, setShowScannedDialog] = useState(false)
   const [scannedPagesCount, setScannedPagesCount] = useState(0)
-  const [conversionMethod, setConversionMethod] = useState<'image' | 'ocr' | null>(null)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const pdfFile = acceptedFiles[0]
-    if (pdfFile && pdfFile.type === 'application/pdf') {
-      setFile(pdfFile)
-      setError(null)
-    } else {
-      setError('Please upload a valid PDF file')
+    const validFiles = acceptedFiles.filter(f => f.type === 'application/pdf')
+
+    if (validFiles.length === 0) {
       toast.error('Invalid file type')
+      return
     }
+
+    const newFiles: FileItem[] = validFiles.map(file => ({
+      id: `${file.name}-${Date.now()}-${Math.random()}`,
+      file,
+      status: 'pending' as const,
+      progress: 0
+    }))
+
+    setFiles(prev => [...prev, ...newFiles])
+    toast.success(`${validFiles.length} file(s) added to queue`)
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -86,10 +101,10 @@ export function PDFToWordTool() {
     accept: {
       'application/pdf': ['.pdf']
     },
-    maxFiles: 1,
+    multiple: true,
   })
 
-  const extractTextFromPDF = async (file: File): Promise<ExtractedPage[]> => {
+  const extractTextFromPDF = async (file: File, fileId: string): Promise<ExtractedPage[]> => {
     const arrayBuffer = await file.arrayBuffer()
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise
     const pages: ExtractedPage[] = []
@@ -328,13 +343,15 @@ export function PDFToWordTool() {
         viewport
       })
 
-      setProgress((pageNum / pdf.numPages) * 20) // First 20% for extraction
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? { ...f, progress: (pageNum / pdf.numPages) * 20 } : f
+      ))
     }
 
     return pages
   }
 
-  const performOCR = async (pages: ExtractedPage[]): Promise<ExtractedPage[]> => {
+  const performOCR = async (pages: ExtractedPage[], fileId: string): Promise<ExtractedPage[]> => {
     toast.info('Initializing OCR engine...')
     const ocrEngine = await createOCREngine('eng')
     const ocrResults: ExtractedPage[] = []
@@ -345,7 +362,9 @@ export function PDFToWordTool() {
 
         if (!page.hasText && page.canvas) {
           toast.info(`Performing OCR on page ${page.pageNumber}...`)
-          setProgress(20 + ((i + 1) / pages.length) * 40) // 20-60% for OCR
+          setFiles(prev => prev.map(f =>
+            f.id === fileId ? { ...f, progress: 20 + ((i + 1) / pages.length) * 40 } : f
+          ))
 
           const result = await ocrEngine.recognize(page.canvas)
 
@@ -365,7 +384,7 @@ export function PDFToWordTool() {
     }
   }
 
-  const createWordDocumentWithImages = async (pages: ExtractedPage[]): Promise<Blob> => {
+  const createWordDocumentWithImages = async (pages: ExtractedPage[], fileId: string): Promise<Blob> => {
     const children: (Paragraph | Table)[] = []
 
     for (let index = 0; index < pages.length; index++) {
@@ -525,7 +544,9 @@ export function PDFToWordTool() {
         }
       }
 
-      setProgress(60 + ((index + 1) / pages.length) * 40)
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? { ...f, progress: 60 + ((index + 1) / pages.length) * 40 } : f
+      ))
     }
 
 
@@ -537,7 +558,7 @@ export function PDFToWordTool() {
     return blob
   }
 
-  const createWordDocument = async (pages: ExtractedPage[]): Promise<Blob> => {
+  const createWordDocument = async (pages: ExtractedPage[], fileId: string): Promise<Blob> => {
     const children: (Paragraph | Table)[] = []
 
     for (let index = 0; index < pages.length; index++) {
@@ -657,7 +678,9 @@ export function PDFToWordTool() {
         }
       }
 
-      setProgress(60 + ((index + 1) / pages.length) * 40)
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? { ...f, progress: 60 + ((index + 1) / pages.length) * 40 } : f
+      ))
     }
 
     const doc = new Document({
@@ -878,107 +901,178 @@ export function PDFToWordTool() {
     })
   }
 
-  const convertToWord = async () => {
-    if (!file) return
+  const removeFile = (fileId: string) => {
+    setFiles(prev => prev.filter(f => f.id !== fileId))
+  }
 
-    setConverting(true)
-    setProgress(0)
-    setError(null)
+  const convertFile = async (fileId: string) => {
+    const fileItem = files.find(f => f.id === fileId)
+    if (!fileItem) return
+
+    setFiles(prev => prev.map(f =>
+      f.id === fileId ? { ...f, status: 'converting', progress: 0 } : f
+    ))
 
     try {
-      toast.info('Extracting text from PDF...')
-      const pages = await extractTextFromPDF(file)
+      toast.info(`Extracting text from ${fileItem.file.name}...`)
+      const pages = await extractTextFromPDF(fileItem.file, fileId)
 
       // Check if any pages are scanned (no text)
       const scannedPages = pages.filter(p => !p.hasText)
 
       if (scannedPages.length > 0) {
         // Show dialog to ask user preference
-        setExtractedPages(pages)
+        setFiles(prev => prev.map(f =>
+          f.id === fileId ? { ...f, extractedPages: pages, status: 'pending' } : f
+        ))
+        setCurrentFileId(fileId)
         setScannedPagesCount(scannedPages.length)
         setShowScannedDialog(true)
-        setConverting(false)
-        setProgress(0)
         return
       }
 
       // All pages have text, proceed normally
-      setExtractedPages(pages)
-      await finishConversion(pages, 'text')
+      await finishConversion(fileId, pages, 'text')
     } catch (error) {
       console.error('Conversion error:', error)
-      setError('Failed to convert PDF to Word. Please try again.')
-      toast.error('Conversion failed')
-      setConverting(false)
-      setProgress(0)
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? {
+          ...f,
+          status: 'error',
+          error: 'Failed to convert PDF to Word. Please try again.'
+        } : f
+      ))
+      toast.error(`Conversion failed for ${fileItem.file.name}`)
+    }
+  }
+
+  const convertAll = async () => {
+    const pendingFiles = files.filter(f => f.status === 'pending')
+
+    for (const fileItem of pendingFiles) {
+      await convertFile(fileItem.id)
     }
   }
 
   const handleScannedPagesChoice = async (choice: 'image' | 'ocr') => {
     setShowScannedDialog(false)
-    setConverting(true)
-    setConversionMethod(choice)
+
+    if (!currentFileId) return
+
+    const fileItem = files.find(f => f.id === currentFileId)
+    if (!fileItem || !fileItem.extractedPages) return
+
+    setFiles(prev => prev.map(f =>
+      f.id === currentFileId ? { ...f, status: 'converting', conversionMethod: choice } : f
+    ))
 
     try {
       if (choice === 'ocr') {
         // Perform OCR on scanned pages
         toast.info('Performing OCR on scanned pages...')
-        const ocrPages = await performOCR(extractedPages)
-        setExtractedPages(ocrPages)
-        await finishConversion(ocrPages, 'ocr')
+        const ocrPages = await performOCR(fileItem.extractedPages, currentFileId)
+        await finishConversion(currentFileId, ocrPages, 'ocr')
       } else {
         // Keep images
-        await finishConversion(extractedPages, 'image')
+        await finishConversion(currentFileId, fileItem.extractedPages, 'image')
       }
     } catch (error) {
       console.error('Conversion error:', error)
-      setError('Failed to convert PDF to Word. Please try again.')
+      setFiles(prev => prev.map(f =>
+        f.id === currentFileId ? {
+          ...f,
+          status: 'error',
+          error: 'Failed to convert PDF to Word. Please try again.'
+        } : f
+      ))
       toast.error('Conversion failed')
     } finally {
-      setConverting(false)
+      setCurrentFileId(null)
     }
   }
 
-  const finishConversion = async (pages: ExtractedPage[], method: 'text' | 'image' | 'ocr') => {
+  const finishConversion = async (fileId: string, pages: ExtractedPage[], method: 'text' | 'image' | 'ocr') => {
+    const fileItem = files.find(f => f.id === fileId)
+    if (!fileItem) return
+
     try {
       let blob: Blob
 
       if (method === 'image') {
-        blob = await createWordDocumentWithImages(pages)
+        blob = await createWordDocumentWithImages(pages, fileId)
       } else {
-        blob = await createWordDocument(pages)
+        blob = await createWordDocument(pages, fileId)
       }
 
-      // Download the file
+      // Create download URL
       const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = file!.name.replace('.pdf', '.docx')
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
 
-      toast.success('PDF converted to Word successfully!', {
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? {
+          ...f,
+          status: 'completed',
+          progress: 100,
+          downloadUrl: url,
+          conversionMethod: method
+        } : f
+      ))
+
+      toast.success(`${fileItem.file.name} converted successfully!`, {
         description: `${pages.length} pages converted`,
       })
-
-      setProgress(100)
-      setShowPreview(true)
-    } finally {
-      setConverting(false)
+    } catch (error) {
+      setFiles(prev => prev.map(f =>
+        f.id === fileId ? {
+          ...f,
+          status: 'error',
+          error: 'Failed to create Word document'
+        } : f
+      ))
+      throw error
     }
   }
 
+  const downloadFile = (fileId: string) => {
+    const fileItem = files.find(f => f.id === fileId)
+    if (!fileItem || !fileItem.downloadUrl) return
+
+    const link = document.createElement('a')
+    link.href = fileItem.downloadUrl
+    link.download = fileItem.file.name.replace('.pdf', '.docx')
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const reset = () => {
-    setFile(null)
-    setProgress(0)
-    setError(null)
-    setExtractedPages([])
-    setShowPreview(false)
+    // Cleanup blob URLs
+    files.forEach(f => {
+      if (f.downloadUrl) {
+        URL.revokeObjectURL(f.downloadUrl)
+      }
+    })
+    setFiles([])
+    setCurrentFileId(null)
     setShowScannedDialog(false)
     setScannedPagesCount(0)
-    setConversionMethod(null)
+  }
+
+  const pendingFiles = files.filter(f => f.status === 'pending')
+  const convertingFiles = files.filter(f => f.status === 'converting')
+  const completedFiles = files.filter(f => f.status === 'completed')
+  const errorFiles = files.filter(f => f.status === 'error')
+
+  const getStatusBadge = (status: FileItem['status']) => {
+    switch (status) {
+      case 'pending':
+        return <Badge variant="secondary">Pending</Badge>
+      case 'converting':
+        return <Badge variant="default" className="bg-blue-500">Converting</Badge>
+      case 'completed':
+        return <Badge variant="default" className="bg-green-500">Completed</Badge>
+      case 'error':
+        return <Badge variant="destructive">Error</Badge>
+    }
   }
 
   return (
@@ -992,7 +1086,7 @@ export function PDFToWordTool() {
           <CardDescription>{t('tools.pdfToWord.intro')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-        {!file ? (
+          {/* Upload Zone */}
           <div
             {...getRootProps()}
             className={`border-2 border-dashed border-border rounded-lg p-12 text-center hover:border-primary/50 transition-colors cursor-pointer ${
@@ -1005,62 +1099,181 @@ export function PDFToWordTool() {
             <p className="text-sm text-muted-foreground mb-4">{t('fileUpload.or')}</p>
             <Button variant="secondary">{t('fileUpload.browse')}</Button>
           </div>
-        ) : (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-              <div className="flex items-center gap-3">
-                <FileText className="h-8 w-8 text-primary" />
-                <div>
-                  <p className="font-medium">{file.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </div>
+
+          {/* Pending & Converting Files */}
+          {(pendingFiles.length > 0 || convertingFiles.length > 0) && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">File Queue</h3>
+                {pendingFiles.length > 0 && (
+                  <Button onClick={convertAll} disabled={convertingFiles.length > 0}>
+                    <FileType className="mr-2 h-4 w-4" />
+                    Convert All ({pendingFiles.length})
+                  </Button>
+                )}
               </div>
-              {!converting && (
-                <Button variant="outline" size="sm" onClick={reset}>
-                  {t('common.cancel')}
-                </Button>
-              )}
+
+              <div className="space-y-3">
+                {[...pendingFiles, ...convertingFiles].map((fileItem) => (
+                  <Card key={fileItem.id}>
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-start gap-3 flex-1 min-w-0">
+                            <FileText className="h-8 w-8 text-primary shrink-0 mt-1" />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium truncate">{fileItem.file.name}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {(fileItem.file.size / 1024 / 1024).toFixed(2)} MB
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            {getStatusBadge(fileItem.status)}
+                            {fileItem.status === 'pending' && (
+                              <>
+                                <Button
+                                  size="sm"
+                                  onClick={() => convertFile(fileItem.id)}
+                                  disabled={convertingFiles.length > 0}
+                                >
+                                  Convert
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => removeFile(fileItem.id)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                        </div>
+
+                        {fileItem.status === 'converting' && (
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">
+                                {t('tools.pdfToWord.converting')}
+                              </span>
+                              <span className="font-medium">{Math.round(fileItem.progress || 0)}%</span>
+                            </div>
+                            <Progress value={fileItem.progress || 0} className="h-2" />
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
+          )}
 
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            {converting && (
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{t('tools.pdfToWord.converting')}</span>
-                  <span className="font-medium">{Math.round(progress)}%</span>
-                </div>
-                <Progress value={progress} className="h-2" />
+          {/* Completed Files */}
+          {completedFiles.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Completed Conversions</h3>
+              <div className="space-y-3">
+                {completedFiles.map((fileItem) => (
+                  <Card key={fileItem.id}>
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3 flex-1 min-w-0">
+                          <CheckCircle2 className="h-8 w-8 text-green-500 shrink-0 mt-1" />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium truncate">{fileItem.file.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              Converted to {fileItem.file.name.replace('.pdf', '.docx')}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          {getStatusBadge(fileItem.status)}
+                          <Button
+                            size="sm"
+                            onClick={() => downloadFile(fileItem.id)}
+                          >
+                            <Download className="mr-2 h-4 w-4" />
+                            Download
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => removeFile(fileItem.id)}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            <Button
-              onClick={convertToWord}
-              disabled={converting}
-              className="w-full"
-              size="lg"
-            >
-              {converting ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  {t('tools.pdfToWord.converting')}
-                </>
-              ) : (
-                <>
-                  <FileType className="mr-2 h-5 w-5" />
-                  {t('tools.pdfToWord.convertButton')}
-                </>
-              )}
+          {/* Error Files */}
+          {errorFiles.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Failed Conversions</h3>
+              <div className="space-y-3">
+                {errorFiles.map((fileItem) => (
+                  <Card key={fileItem.id}>
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-start gap-3 flex-1 min-w-0">
+                            <AlertCircle className="h-8 w-8 text-destructive shrink-0 mt-1" />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium truncate">{fileItem.file.name}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {(fileItem.file.size / 1024 / 1024).toFixed(2)} MB
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            {getStatusBadge(fileItem.status)}
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                setFiles(prev => prev.map(f =>
+                                  f.id === fileItem.id ? { ...f, status: 'pending', error: undefined } : f
+                                ))
+                              }}
+                            >
+                              Retry
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => removeFile(fileItem.id)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                        {fileItem.error && (
+                          <Alert variant="destructive">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription>{fileItem.error}</AlertDescription>
+                          </Alert>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Clear All Button */}
+          {files.length > 0 && (
+            <Button variant="outline" onClick={reset} className="w-full">
+              Clear All Files
             </Button>
-          </div>
-        )}
+          )}
         </CardContent>
       </Card>
 
