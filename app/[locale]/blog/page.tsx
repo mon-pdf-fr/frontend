@@ -1,13 +1,13 @@
 "use client"
 
-import { useTranslations } from 'next-intl'
-import { useRouter, usePathname } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {useTranslations} from 'next-intl'
+import {usePathname, useRouter} from 'next/navigation'
+import {Button} from "@/components/ui/button"
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import Link from 'next/link'
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
-import { SiteFooter } from "@/components/site-footer"
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
+import {SiteFooter} from "@/components/site-footer"
 
 export default function BlogPage() {
   const t = useTranslations()
@@ -82,7 +82,6 @@ export default function BlogPage() {
                   ? 'Mon PDF - Outils PDF Gratuits en Ligne'
                   : 'Mon PDF - Free Online PDF Tools'
                 }
-                className="h-30 w-30"
                 width="120"
                 height="120"
               />

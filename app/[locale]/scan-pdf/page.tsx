@@ -1,11 +1,11 @@
 "use client"
 
-import { useTranslations } from 'next-intl'
-import { PDFScannerToolClient } from "@/components/pdf-scanner-tool-client"
-import { Button } from "@/components/ui/button"
-import { useRouter, usePathname } from 'next/navigation'
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
+import {useTranslations} from 'next-intl'
+import {PDFScannerToolClient} from "@/components/pdf-scanner-tool-client"
+import {Button} from "@/components/ui/button"
+import {usePathname, useRouter} from 'next/navigation'
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
 import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
@@ -162,7 +162,6 @@ export default function ScanPDFPage() {
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne'
                     : 'Mon PDF - Free Online PDF Tools'
                   }
-                  className="h-30 w-30"
                   priority
                   width={120}
                   height={120}

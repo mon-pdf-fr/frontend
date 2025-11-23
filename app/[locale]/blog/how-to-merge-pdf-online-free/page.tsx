@@ -1,11 +1,11 @@
 "use client"
 
-import { useRouter, usePathname } from 'next/navigation'
-import { Button } from "@/components/ui/button"
+import {usePathname, useRouter} from 'next/navigation'
+import {Button} from "@/components/ui/button"
 import Link from 'next/link'
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
-import { SiteFooter } from "@/components/site-footer"
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
+import {SiteFooter} from "@/components/site-footer"
 import Script from 'next/script'
 
 export default function MergePDFGuidePage() {
@@ -84,7 +84,6 @@ export default function MergePDFGuidePage() {
                 <img
                   src="/logo.png"
                   alt="Mon PDF"
-                  className="h-30 w-30"
                   width="120"
                   height="120"
                 />

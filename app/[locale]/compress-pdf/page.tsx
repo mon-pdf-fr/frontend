@@ -187,7 +187,6 @@ export default function CompressPDFPage() {
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
                     : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
                   }
-                  className="h-30 w-30"
                   priority
                   width={120}
                   height={120}

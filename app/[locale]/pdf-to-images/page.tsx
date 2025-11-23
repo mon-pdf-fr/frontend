@@ -152,7 +152,6 @@ export default function PDFToImagesPage() {
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne'
                     : 'Mon PDF - Free Online PDF Tools'
                   }
-                  className="h-30 w-30"
                   priority
                   width={120}
                   height={120}

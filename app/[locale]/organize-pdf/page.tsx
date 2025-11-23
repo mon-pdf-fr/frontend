@@ -1,14 +1,13 @@
 "use client"
 
-import { useTranslations } from 'next-intl'
-import { Button } from "@/components/ui/button"
-import { useRouter, usePathname } from 'next/navigation'
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
+import {useTranslations} from 'next-intl'
+import {Button} from "@/components/ui/button"
+import {usePathname, useRouter} from 'next/navigation'
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
 import Link from 'next/link'
 import Script from 'next/script'
 import {SiteFooter} from "@/components/site-footer"
-import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
@@ -188,7 +187,6 @@ export default function OrganizePDFPage() {
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
                     : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
                   }
-                  className="h-30 w-30"
                   width={120}
                   height={120}
                   priority

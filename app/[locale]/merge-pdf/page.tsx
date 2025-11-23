@@ -1,11 +1,11 @@
 "use client"
 
-import { useTranslations } from 'next-intl'
-import { PDFMergeTool } from "@/components/pdf-merge-tool"
-import { Button } from "@/components/ui/button"
-import { useRouter, usePathname } from 'next/navigation'
-import { LanguageSwitcher } from "@/components/language-switcher"
-import { BookmarkButton } from "@/components/bookmark-button"
+import {useTranslations} from 'next-intl'
+import {PDFMergeTool} from "@/components/pdf-merge-tool"
+import {Button} from "@/components/ui/button"
+import {usePathname, useRouter} from 'next/navigation'
+import {LanguageSwitcher} from "@/components/language-switcher"
+import {BookmarkButton} from "@/components/bookmark-button"
 import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
@@ -181,7 +181,6 @@ export default function MergePDFPage() {
                     ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
                     : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
                   }
-                  className="h-30 w-30"
                   width={120}
                   height={120}
                   priority
