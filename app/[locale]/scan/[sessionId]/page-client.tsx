@@ -16,8 +16,35 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [connected, setConnected] = useState(false)
+  const [viewportHeight, setViewportHeight] = useState<number>(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Calculate and set viewport height
+  useEffect(() => {
+    const updateHeight = () => {
+      // Get the actual viewport height (accounts for mobile address bars)
+      const vh = window.innerHeight
+      setViewportHeight(vh)
+
+      // Also set CSS custom property for additional flexibility
+      document.documentElement.style.setProperty('--viewport-height', `${vh}px`)
+    }
+
+    // Set initial height
+    updateHeight()
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', updateHeight)
+    window.addEventListener('orientationchange', updateHeight)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', updateHeight)
+      window.removeEventListener('orientationchange', updateHeight)
+    }
+  }, [])
 
   // Check if session exists via API with retry logic
   useEffect(() => {
@@ -225,18 +252,30 @@ export default function MobileScanPageClient({ params }: { params: Promise<{ ses
   }
 
   return (
-      <div className="relative h-screen w-screen bg-black overflow-hidden">
+      <div
+        ref={containerRef}
+        className="relative w-screen bg-black overflow-hidden"
+        style={{ height: `${viewportHeight}px` }}
+      >
         {/* Full-screen video */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 min-w-full min-h-full overflow-hidden">
-            <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover"
-            />
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ height: `${viewportHeight}px` }}
+        >
+          <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="w-full h-full object-cover"
+              style={{ height: `${viewportHeight}px` }}
+          />
+          {/* Overlay frame */}
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div className="border-2 border-white/40 rounded-xl w-[85%] h-[70%]" />
           </div>
+          {/* Hidden canvas */}
+          <canvas ref={canvasRef} className="hidden" />
         </div>
 
         {/* Header (overlayed on top) */}
