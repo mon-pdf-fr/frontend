@@ -3,8 +3,6 @@
 import {usePathname, useRouter} from 'next/navigation'
 import {Button} from "@/components/ui/button"
 import Link from 'next/link'
-import {LanguageSwitcher} from "@/components/language-switcher"
-import {BookmarkButton} from "@/components/bookmark-button"
 import {SiteFooter} from "@/components/site-footer"
 import Script from 'next/script'
 
@@ -77,25 +75,6 @@ export default function SplitPDFGuidePage() {
       </Script>
 
       <div className="min-h-screen bg-background flex flex-col">
-        <header className="border-b border-border bg-card">
-          <div className="container mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href={`/${locale}`}>
-                <img
-                  src="/logo.png"
-                  alt="Mon PDF"
-                  width="120"
-                  height="120"
-                />
-              </Link>
-            </div>
-            <div className="flex items-center gap-3">
-              <BookmarkButton />
-              <LanguageSwitcher />
-            </div>
-          </div>
-        </header>
-
         <main className="container mx-auto px-4 py-12 flex-1">
           <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="flex items-center space-x-2 text-sm text-muted-foreground">

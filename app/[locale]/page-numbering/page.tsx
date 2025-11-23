@@ -1,12 +1,8 @@
 "use client"
 
 import {useTranslations} from 'next-intl'
-import {Button} from "@/components/ui/button"
 import {usePathname, useRouter} from 'next/navigation'
-import {LanguageSwitcher} from "@/components/language-switcher"
-import {BookmarkButton} from "@/components/bookmark-button"
 import Link from 'next/link'
-import Image from 'next/image'
 import Script from 'next/script'
 import {SiteFooter} from "@/components/site-footer"
 import {PageNumberingTool} from "@/components/page-numbering-tool"
@@ -171,29 +167,6 @@ export default function PageNumberingPage() {
       </Script>
 
       <div className="min-h-screen bg-background flex flex-col">
-        <header className="border-b border-border bg-card">
-          <div className="container mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href={`/${locale}`}>
-                <Image
-                  src="/logo.png"
-                  alt={locale === 'fr'
-                    ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
-                    : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
-                  }
-                  priority
-                  width={120}
-                  height={120}
-                />
-              </Link>
-            </div>
-            <div className="flex items-center gap-3">
-              <BookmarkButton />
-              <LanguageSwitcher />
-            </div>
-          </div>
-        </header>
-
         <main className="container mx-auto px-4 py-12 flex-1">
           {/* Breadcrumbs for SEO */}
           <nav aria-label="Breadcrumb" className="mb-6">
@@ -209,14 +182,6 @@ export default function PageNumberingPage() {
               </li>
             </ol>
           </nav>
-
-          <Button
-            variant="ghost"
-            onClick={() => router.push(`/${locale}`)}
-            className="mb-6"
-          >
-            ← {t('common.backToTools')}
-          </Button>
 
           {/* H1 with primary keyword */}
           <div className="max-w-3xl mx-auto mb-6">

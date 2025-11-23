@@ -15,11 +15,7 @@ import {
 import {useTranslations} from 'next-intl'
 import {usePathname} from 'next/navigation'
 import {PDFToolCard} from "@/components/pdf-tool-card"
-import {LanguageSwitcher} from "@/components/language-switcher"
-import {BookmarkButton} from "@/components/bookmark-button"
 import {SiteFooter} from "@/components/site-footer"
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations()
@@ -111,29 +107,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href={`/${locale}`}>
-              <Image
-                  src="/logo.png"
-                  alt={locale === 'fr'
-                      ? 'Mon PDF - Outils PDF Gratuits en Ligne'
-                      : 'Mon PDF - Free Online PDF Tools'
-                  }
-                  priority
-                  width={120}
-                  height={120}
-              />
-            </Link>
-          </div>
-          <div className="flex items-center gap-3">
-            <BookmarkButton />
-            <LanguageSwitcher />
-          </div>
-        </div>
-      </header>
-
       <main className="container mx-auto px-4 py-12 grow-1">
         <div>
           <div className="mb-8">

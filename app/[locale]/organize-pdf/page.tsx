@@ -1,15 +1,11 @@
 "use client"
 
 import {useTranslations} from 'next-intl'
-import {Button} from "@/components/ui/button"
 import {usePathname, useRouter} from 'next/navigation'
-import {LanguageSwitcher} from "@/components/language-switcher"
-import {BookmarkButton} from "@/components/bookmark-button"
 import Link from 'next/link'
 import Script from 'next/script'
 import {SiteFooter} from "@/components/site-footer"
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 
 // Lazy load the PDFOrganizeTool to avoid SSR issues with pdf.js
 const PDFOrganizeTool = dynamic(() => import("@/components/pdf-organize-tool").then(mod => ({ default: mod.PDFOrganizeTool })), {
@@ -177,29 +173,6 @@ export default function OrganizePDFPage() {
       </Script>
 
       <div className="min-h-screen bg-background flex flex-col">
-        <header className="border-b border-border bg-card">
-          <div className="container mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href={`/${locale}`}>
-                <Image
-                  src="/logo.png"
-                  alt={locale === 'fr'
-                    ? 'Mon PDF - Outils PDF Gratuits en Ligne - Fusionner, Diviser, compresser PDF'
-                    : 'Mon PDF - Free Online PDF Tools - Merge, Split, Compress PDF'
-                  }
-                  width={120}
-                  height={120}
-                  priority
-                />
-              </Link>
-            </div>
-            <div className="flex items-center gap-3">
-              <BookmarkButton />
-              <LanguageSwitcher />
-            </div>
-          </div>
-        </header>
-
         <main className="container mx-auto px-4 py-12 flex-1">
           {/* Breadcrumbs for SEO */}
           <nav aria-label="Breadcrumb" className="mb-6">
@@ -216,13 +189,6 @@ export default function OrganizePDFPage() {
             </ol>
           </nav>
 
-          <Button
-            variant="ghost"
-            onClick={() => router.push(`/${locale}`)}
-            className="mb-6"
-          >
-            ← {t('common.backToTools')}
-          </Button>
 
           {/* H1 with primary keyword */}
           <div className="max-w-3xl mx-auto mb-6">

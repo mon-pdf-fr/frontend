@@ -11,7 +11,8 @@ import StoreProvider from "@/components/providers/store-provider"
 import {notFound} from "next/navigation"
 import {locales} from "@/i18n"
 import "../globals.css"
-import {SpeedInsights} from "@vercel/speed-insights/next";
+import {SpeedInsights} from "@vercel/speed-insights/next"
+import {SiteHeader} from "@/components/site-header"
 
 const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -161,7 +162,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
 
       <NextIntlClientProvider messages={messages}>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <SiteHeader />
+          {children}
+        </StoreProvider>
       </NextIntlClientProvider>
 
       <Toaster position="top-right" richColors closeButton />

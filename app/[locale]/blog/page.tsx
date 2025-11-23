@@ -5,8 +5,6 @@ import {usePathname, useRouter} from 'next/navigation'
 import {Button} from "@/components/ui/button"
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import Link from 'next/link'
-import {LanguageSwitcher} from "@/components/language-switcher"
-import {BookmarkButton} from "@/components/bookmark-button"
 import {SiteFooter} from "@/components/site-footer"
 
 export default function BlogPage() {
@@ -72,28 +70,6 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href={`/${locale}`}>
-              <img
-                src="/logo.png"
-                alt={locale === 'fr'
-                  ? 'Mon PDF - Outils PDF Gratuits en Ligne'
-                  : 'Mon PDF - Free Online PDF Tools'
-                }
-                width="120"
-                height="120"
-              />
-            </Link>
-          </div>
-          <div className="flex items-center gap-3">
-            <BookmarkButton />
-            <LanguageSwitcher />
-          </div>
-        </div>
-      </header>
-
       <main className="container mx-auto px-4 py-12 flex-1">
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -109,13 +85,6 @@ export default function BlogPage() {
           </ol>
         </nav>
 
-        <Button
-          variant="ghost"
-          onClick={() => router.push(`/${locale}`)}
-          className="mb-6"
-        >
-          ← {t('common.backToTools')}
-        </Button>
 
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
