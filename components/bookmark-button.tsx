@@ -88,7 +88,7 @@ export function BookmarkButton() {
         variant="outline"
         size="sm"
         onClick={handleBookmark}
-        className="gap-2 cursor-pointer"
+        className="gap-2 cursor-pointer hidden md:flex"
       >
         <Star className="h-4 w-4" />
         <span className="hidden sm:inline">{t('bookmark.button')}</span>
