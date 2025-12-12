@@ -4,24 +4,30 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTranslations } from 'next-intl'
-import { Loader2, Download, FileCheck, Upload } from "lucide-react"
+import { Loader2, Download, FileCheck, Upload, Check } from "lucide-react"
 import { EmailShareButton } from "@/components/email-share-button"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 type QualityLevel = "high" | "medium" | "low"
+
+interface CompressedQuality {
+  size: number
+  ratio: number
+  blob: string // base64
+}
 
 export function PDFCompressTool() {
   const t = useTranslations()
   const [file, setFile] = useState<File | null>(null)
   const [compressing, setCompressing] = useState(false)
   const [compressedData, setCompressedData] = useState<{
-    blob: Blob
     originalSize: number
-    compressedSize: number
-    compressionRatio: number
+    qualities: {
+      high: CompressedQuality
+      medium: CompressedQuality
+      low: CompressedQuality
+    }
   } | null>(null)
-  const [quality, setQuality] = useState<QualityLevel>("medium")
+  const [selectedQuality, setSelectedQuality] = useState<QualityLevel | null>(null)
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return "0 Bytes"
@@ -38,9 +44,8 @@ export function PDFCompressTool() {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('quality', quality)
 
-      const response = await fetch('/api/compress-pdf', {
+      const response = await fetch('/api/compress-pdf-all', {
         method: 'POST',
         body: formData,
       })
@@ -50,16 +55,11 @@ export function PDFCompressTool() {
         throw new Error(error.error || 'Failed to compress PDF')
       }
 
-      const compressedBlob = await response.blob()
-      const originalSize = parseInt(response.headers.get('X-Original-Size') || file.size.toString())
-      const compressedSize = parseInt(response.headers.get('X-Compressed-Size') || compressedBlob.size.toString())
-      const ratio = parseInt(response.headers.get('X-Compression-Ratio') || '0')
+      const result = await response.json()
 
       setCompressedData({
-        blob: compressedBlob,
-        originalSize,
-        compressedSize,
-        compressionRatio: ratio,
+        originalSize: result.originalSize,
+        qualities: result.qualities,
       })
     } catch (error) {
       console.error("Error compressing PDF:", error)
@@ -70,37 +70,85 @@ export function PDFCompressTool() {
   }
 
   const generateCompressedBlob = async (): Promise<Blob | null> => {
-    if (!compressedData) return null
-    return compressedData.blob
+    if (!compressedData || !selectedQuality) return null
+
+    const base64Data = compressedData.qualities[selectedQuality].blob
+    const binaryData = atob(base64Data)
+    const bytes = new Uint8Array(binaryData.length)
+    for (let i = 0; i < binaryData.length; i++) {
+      bytes[i] = binaryData.charCodeAt(i)
+    }
+    return new Blob([bytes], { type: 'application/pdf' })
   }
 
-  const handleDownload = () => {
-    if (!compressedData || !file) return
+  const handleDownload = async () => {
+    if (!compressedData || !file || !selectedQuality) return
 
-    const url = URL.createObjectURL(compressedData.blob)
+    const blob = await generateCompressedBlob()
+    if (!blob) return
+
+    const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
     link.href = url
-    link.download = file.name.replace(/\.pdf$/i, "_compressed.pdf")
+    link.download = file.name.replace(/\.pdf$/i, `_compressed_${selectedQuality}.pdf`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
     URL.revokeObjectURL(url)
   }
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0]
     if (uploadedFile && uploadedFile.type === "application/pdf") {
       setFile(uploadedFile)
       setCompressedData(null)
+      setSelectedQuality(null)
+
+      // Auto-compress to all qualities
+      await autoCompressFile(uploadedFile)
     }
   }
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+  const autoCompressFile = async (file: File) => {
+    setCompressing(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/compress-pdf-all', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to compress PDF')
+      }
+
+      const result = await response.json()
+
+      setCompressedData({
+        originalSize: result.originalSize,
+        qualities: result.qualities,
+      })
+    } catch (error) {
+      console.error("Error compressing PDF:", error)
+      alert("Failed to compress PDF. Please try again.")
+    } finally {
+      setCompressing(false)
+    }
+  }
+
+  const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault()
     const droppedFile = event.dataTransfer.files[0]
     if (droppedFile && droppedFile.type === "application/pdf") {
       setFile(droppedFile)
       setCompressedData(null)
+      setSelectedQuality(null)
+
+      // Auto-compress to all qualities
+      await autoCompressFile(droppedFile)
     }
   }
 
@@ -111,7 +159,7 @@ export function PDFCompressTool() {
   const handleReset = () => {
     setFile(null)
     setCompressedData(null)
-    setQuality("medium")
+    setSelectedQuality(null)
   }
 
   return (
@@ -152,9 +200,9 @@ export function PDFCompressTool() {
               <div className="flex items-center gap-3">
                 <FileCheck className="h-8 w-8 text-primary" />
                 <div>
-                  <p className="font-medium">{t('tools.compressPdf.fileInfo', { name: file.name })}</p>
+                  <p className="font-medium">{file.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {t('tools.compressPdf.originalSize')}: {formatFileSize(file.size)}
+                    Original Size: {formatFileSize(file.size)}
                   </p>
                 </div>
               </div>
@@ -163,111 +211,157 @@ export function PDFCompressTool() {
               </Button>
             </div>
 
-            {/* Quality Selection */}
-            {!compressedData && (
+            {/* Compressing State */}
+            {compressing && (
+              <div className="text-center py-8">
+                <Loader2 className="h-12 w-12 mx-auto mb-4 animate-spin text-primary" />
+                <p className="text-lg font-medium">Compressing to all quality levels...</p>
+                <p className="text-sm text-muted-foreground mt-2">This may take a moment</p>
+              </div>
+            )}
+
+            {/* Quality Cards */}
+            {compressedData && !compressing && (
               <div className="space-y-4">
-                <Label className="text-base font-semibold">{t('tools.compressPdf.quality')}</Label>
-                <RadioGroup value={quality} onValueChange={(value) => setQuality(value as QualityLevel)}>
-                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <RadioGroupItem value="high" id="high" />
-                    <Label htmlFor="high" className="flex-1 cursor-pointer">
-                      <div>
-                        <p className="font-medium">{t('tools.compressPdf.qualityHigh')}</p>
-                        <p className="text-sm text-muted-foreground">
-                          Best quality, smaller file size reduction
-                        </p>
-                      </div>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <RadioGroupItem value="medium" id="medium" />
-                    <Label htmlFor="medium" className="flex-1 cursor-pointer">
-                      <div>
-                        <p className="font-medium">{t('tools.compressPdf.qualityMedium')}</p>
-                        <p className="text-sm text-muted-foreground">
-                          Good balance between quality and file size
-                        </p>
-                      </div>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <RadioGroupItem value="low" id="low" />
-                    <Label htmlFor="low" className="flex-1 cursor-pointer">
-                      <div>
-                        <p className="font-medium">{t('tools.compressPdf.qualityLow')}</p>
-                        <p className="text-sm text-muted-foreground">
-                          Maximum compression, reduced quality
-                        </p>
-                      </div>
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            )}
-
-            {/* Compression Results */}
-            {compressedData && (
-              <div className="space-y-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 rounded-lg border-2 border-green-200 dark:border-green-800">
-                <h3 className="text-lg font-semibold text-center">
-                  {t('tools.compressPdf.savedSpace', { percent: compressedData.compressionRatio })}
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-1">
-                      {t('tools.compressPdf.originalSize')}
-                    </p>
-                    <p className="text-xl font-bold">{formatFileSize(compressedData.originalSize)}</p>
-                  </div>
-                  <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-1">
-                      {t('tools.compressPdf.compressedSize')}
-                    </p>
-                    <p className="text-xl font-bold text-green-600 dark:text-green-400">
-                      {formatFileSize(compressedData.compressedSize)}
-                    </p>
-                  </div>
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold mb-2">Choose Your Compression Level</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Select the quality that best fits your needs
+                  </p>
                 </div>
-              </div>
-            )}
 
-            {/* Action Buttons */}
-            <div className="flex gap-3">
-              {!compressedData ? (
-                <Button
-                  onClick={handleCompress}
-                  disabled={compressing}
-                  className="flex-1"
-                  size="lg"
-                >
-                  {compressing ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t('tools.compressPdf.compressing')}
-                    </>
-                  ) : (
-                    t('tools.compressPdf.compressButton')
-                  )}
-                </Button>
-              ) : (
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button onClick={handleDownload} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" size="lg">
-                      <Download className="mr-2 h-4 w-4" />
-                      {t('tools.compressPdf.downloadCompressed')}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* High Quality Card */}
+                  <Card
+                    className={`cursor-pointer transition-all ${
+                      selectedQuality === 'high'
+                        ? 'ring-2 ring-primary border-primary'
+                        : 'hover:border-primary/50'
+                    }`}
+                    onClick={() => setSelectedQuality('high')}
+                  >
+                    <CardContent className="p-6 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-lg">High Quality</h4>
+                        {selectedQuality === 'high' && (
+                          <Check className="h-5 w-5 text-primary" />
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">File Size:</span>
+                          <span className="text-xl font-bold text-primary">
+                            {formatFileSize(compressedData.qualities.high.size)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">Saved:</span>
+                          <span className="text-lg font-semibold text-green-600">
+                            {compressedData.qualities.high.ratio}%
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground pt-2 border-t">
+                        Best quality, smaller file size reduction
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  {/* Medium Quality Card */}
+                  <Card
+                    className={`cursor-pointer transition-all ${
+                      selectedQuality === 'medium'
+                        ? 'ring-2 ring-primary border-primary'
+                        : 'hover:border-primary/50'
+                    }`}
+                    onClick={() => setSelectedQuality('medium')}
+                  >
+                    <CardContent className="p-6 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-lg">Medium Quality</h4>
+                        {selectedQuality === 'medium' && (
+                          <Check className="h-5 w-5 text-primary" />
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">File Size:</span>
+                          <span className="text-xl font-bold text-primary">
+                            {formatFileSize(compressedData.qualities.medium.size)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">Saved:</span>
+                          <span className="text-lg font-semibold text-green-600">
+                            {compressedData.qualities.medium.ratio}%
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground pt-2 border-t">
+                        Good balance between quality and file size
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  {/* Low Quality Card */}
+                  <Card
+                    className={`cursor-pointer transition-all ${
+                      selectedQuality === 'low'
+                        ? 'ring-2 ring-primary border-primary'
+                        : 'hover:border-primary/50'
+                    }`}
+                    onClick={() => setSelectedQuality('low')}
+                  >
+                    <CardContent className="p-6 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-lg">Low Quality</h4>
+                        {selectedQuality === 'low' && (
+                          <Check className="h-5 w-5 text-primary" />
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">File Size:</span>
+                          <span className="text-xl font-bold text-primary">
+                            {formatFileSize(compressedData.qualities.low.size)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-baseline">
+                          <span className="text-sm text-muted-foreground">Saved:</span>
+                          <span className="text-lg font-semibold text-green-600">
+                            {compressedData.qualities.low.ratio}%
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground pt-2 border-t">
+                        Maximum compression, reduced quality
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Action Buttons */}
+                {selectedQuality && (
+                  <div className="flex flex-col gap-3 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button onClick={handleDownload} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" size="lg">
+                        <Download className="mr-2 h-4 w-4" />
+                        Download ({selectedQuality} quality)
+                      </Button>
+                      <EmailShareButton
+                        onGenerateBlob={generateCompressedBlob}
+                        fileName={file?.name.replace(/\.pdf$/i, `_compressed_${selectedQuality}.pdf`) || "compressed.pdf"}
+                        shareMessage="I've compressed a PDF document using Mon PDF."
+                        className="sm:w-auto w-full"
+                      />
+                    </div>
+                    <Button onClick={handleReset} variant="outline" size="lg">
+                      Start Over
                     </Button>
-                    <EmailShareButton
-                      onGenerateBlob={generateCompressedBlob}
-                      fileName={file?.name.replace(/\.pdf$/i, "_compressed.pdf") || "compressed.pdf"}
-                      shareMessage="I've compressed a PDF document using Mon PDF."
-                      className="sm:w-auto w-full"
-                    />
                   </div>
-                  <Button onClick={handleReset} variant="outline" size="lg">
-                    {t('common.cancel')}
-                  </Button>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </CardContent>
