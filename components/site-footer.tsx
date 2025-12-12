@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import {useTranslations} from 'next-intl'
-import {Lock, Shield} from 'lucide-react'
 import Image from "next/image";
 
 interface SiteFooterProps {
@@ -47,23 +46,6 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                   width={150}
                   height={100}
               />
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {locale === 'fr'
-                  ? 'Outils PDF gratuits et sécurisés. Traitement 100% local, vos fichiers restent privés.'
-                  : 'Free and secure PDF tools. 100% local processing, your files stay private.'}
-              </p>
-            </div>
-
-            {/* Trust Badges */}
-            <div className="flex flex-col gap-2 pt-2">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Shield className="h-3.5 w-3.5 text-green-600" />
-                <span>{locale === 'fr' ? '100% Sécurisé' : '100% Secure'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Lock className="h-3.5 w-3.5 text-blue-600" />
-                <span>{locale === 'fr' ? 'Confidentialité totale' : 'Complete Privacy'}</span>
-              </div>
             </div>
           </div>
 
@@ -147,16 +129,6 @@ export function SiteFooter({ locale }: SiteFooterProps) {
               >
                 Blog
               </Link>
-            </div>
-          </div>
-
-          {/* Privacy Badge */}
-          <div className="mt-6 pt-6 border-t border-border/20">
-            <div className="flex items-start gap-3 max-w-3xl mx-auto">
-              <Lock className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-muted-foreground leading-relaxed text-center">
-                {t('common.privacyNote')}
-              </p>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Ajouter des numéros de page à vos PDF en ligne gratuitement. Numérotation personnalisée, position flexible. Sans inscription. 100% sécurisé et privé.'
-    : 'Add page numbers to your PDFs online for free. Custom numbering, flexible position. No email required. 100% secure and private. Works on all devices.'
+    ? 'Ajouter des numéros de page à vos PDF en ligne gratuitement. Numérotation personnalisée, position flexible. Sans inscription.'
+    : 'Add page numbers to your PDFs online for free. Custom numbering, flexible position. No email required. Works on all devices.'
 
   return {
     title,

@@ -9,11 +9,13 @@ import { addFiles, setProcessing } from "@/lib/features/pdf-slice"
 import { Type, Download } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { PDFCanvasEditor, type TextElement } from "@/components/pdf-canvas-editor"
+import { EmailShareButton } from "@/components/email-share-button"
 
 export function AddTextTool() {
   const dispatch = useAppDispatch()
   const { files, processing } = useAppSelector((state) => state.pdf)
   const [textElements, setTextElements] = useState<TextElement[]>([])
+  const [modifiedBlob, setModifiedBlob] = useState<Blob | null>(null)
 
   const handleFilesSelected = async (fileList: FileList) => {
     const newFiles = await Promise.all(
@@ -76,17 +78,27 @@ export function AddTextTool() {
 
       const pdfBytes = await pdfDoc.save()
       const blob = new Blob([pdfBytes], { type: "application/pdf" })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `text-added-${files[0].name}`
-      a.click()
-      URL.revokeObjectURL(url)
+      setModifiedBlob(blob)
     } catch (error) {
       console.error("Error adding text to PDF:", error)
     } finally {
       dispatch(setProcessing(false))
     }
+  }
+
+  const generateBlob = async (): Promise<Blob | null> => {
+    return modifiedBlob
+  }
+
+  const handleDownload = () => {
+    if (!modifiedBlob || !files[0]) return
+
+    const url = URL.createObjectURL(modifiedBlob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `text-added-${files[0].name}`
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   return (
@@ -116,21 +128,48 @@ export function AddTextTool() {
 
           <PDFCanvasEditor file={files[0].file} onTextElementsChange={setTextElements} />
 
-          <Button
-            onClick={handleAddText}
-            disabled={processing || textElements.length === 0}
-            className="w-full"
-            size="lg"
-          >
-            {processing ? (
-              "Processing..."
-            ) : (
-              <>
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF with Text ({textElements.length} element{textElements.length !== 1 ? "s" : ""})
-              </>
-            )}
-          </Button>
+          {!modifiedBlob ? (
+            <Button
+              onClick={handleAddText}
+              disabled={processing || textElements.length === 0}
+              className="w-full"
+              size="lg"
+            >
+              {processing ? (
+                "Processing..."
+              ) : (
+                <>
+                  <Type className="mr-2 h-4 w-4" />
+                  Add Text to PDF ({textElements.length} element{textElements.length !== 1 ? "s" : ""})
+                </>
+              )}
+            </Button>
+          ) : (
+            <div className="space-y-3">
+              <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                <p className="text-green-700 dark:text-green-400 font-medium">
+                  ✓ Text added successfully!
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  onClick={handleDownload}
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  size="lg"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download PDF
+                </Button>
+                <EmailShareButton
+                  onGenerateBlob={generateBlob}
+                  fileName={`text-added-${files[0].name}`}
+                  shareMessage="I've added text to a PDF using Mon PDF."
+                  className="sm:w-auto w-full"
+                />
+              </div>
+            </div>
+          )}
         </Card>
       )}
     </div>

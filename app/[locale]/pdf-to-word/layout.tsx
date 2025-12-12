@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Convertir PDF en Word (DOCX) gratuitement en ligne. Extraire texte de PDF en document Word éditable. Sans inscription. 100% sécurisé et privé.'
-    : 'Convert PDF to Word (DOCX) online for free. Extract text from PDF to editable Word document. No email required. 100% secure and private.'
+    ? 'Convertir PDF en Word (DOCX) gratuitement en ligne. Extraire texte de PDF en document Word éditable. Sans inscription.'
+    : 'Convert PDF to Word (DOCX) online for free. Extract text from PDF to editable Word document. No email required.'
 
   return {
     title,

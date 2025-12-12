@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'OCR PDF gratuit en ligne. Extraire texte de PDF scanné, reconnaître caractères, détecter tableaux. Sans inscription. 100% sécurisé et privé.'
-    : 'Free online PDF OCR. Extract text from scanned PDF, recognize characters, detect tables. No email required. 100% secure and private.'
+    ? 'OCR PDF gratuit en ligne. Extraire texte de PDF scanné, reconnaître caractères, détecter tableaux. Sans inscription.'
+    : 'Free online PDF OCR. Extract text from scanned PDF, recognize characters, detect tables. No email required.'
 
   return {
     title,

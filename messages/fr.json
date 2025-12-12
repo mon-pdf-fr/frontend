@@ -7,7 +7,6 @@
     "deselectAll": "Tout désélectionner",
     "cancel": "Annuler",
     "continue": "Continuer",
-    "privacyNote": "🔒 100% Privé et Sécurisé : Tout le traitement se fait localement sur votre appareil. Vos fichiers ne quittent jamais votre ordinateur et ne sont jamais téléchargés sur un serveur.",
     "betaTooltip": "Cette fonctionnalité est actuellement en phase de test bêta et peut ne pas être précise à 100%. Nous l'améliorons continuellement en fonction des retours des utilisateurs."
   },
   "bookmark": {
@@ -28,8 +27,7 @@
     "title": "Mon PDF"
   },
   "home": {
-    "title": "Choisissez un outil pour commencer",
-    "subtitle": "🔒 Traitement 100% Côté Client : Tout se passe directement dans votre navigateur. Vos fichiers restent sur votre appareil et ne sont jamais téléchargés sur un serveur. Confidentialité totale garantie."
+    "title": "Choisissez un outil pour commencer"
   },
   "tools": {
     "split": {
@@ -47,7 +45,28 @@
       "pageRangePlaceholder": "ex: 1-3,5,7-9",
       "pageRangeHelp": "Entrez les numéros de page ou les plages séparés par des virgules",
       "splitByRange": "Diviser le PDF par plage",
-      "loadedPages": "{current} sur {total} pages chargées"
+      "loadedPages": "{current} sur {total} pages chargées",
+      "downloadOrShare": "Télécharger ou Partager",
+      "shareVia": "Partager",
+      "shareEmail": "Email",
+      "shareWhatsApp": "WhatsApp",
+      "shareFacebook": "Facebook",
+      "downloading": "Préparation du téléchargement...",
+      "sharingPreparing": "Préparation du partage...",
+      "emailSentTitle": "Email envoyé avec succès !",
+      "emailSentMessage": "Votre PDF a été envoyé à {email}. Si vous ne le voyez pas dans quelques minutes, veuillez vérifier votre dossier spam.",
+      "emailErrorTitle": "Échec de l'envoi de l'email",
+      "emailErrorMessage": "Nous n'avons pas pu envoyer l'email. Veuillez réessayer ou télécharger le PDF et l'envoyer manuellement.",
+      "emailRequired": "Veuillez entrer une adresse email de destinataire",
+      "shareEmailDialogTitle": "Partager par Email",
+      "shareEmailDialogDescription": "Envoyez ce document PDF directement à l'adresse email de quelqu'un.",
+      "recipientEmailLabel": "Email du destinataire",
+      "recipientEmailPlaceholder": "destinataire@exemple.com",
+      "messageLabel": "Message (Optionnel)",
+      "messagePlaceholder": "Ajoutez un message personnel...",
+      "emailNoteMessage": "Le PDF sera joint à l'email et envoyé directement au destinataire.",
+      "sending": "Envoi en cours...",
+      "sendEmail": "Envoyer l'Email"
     },
     "merge": {
       "title": "Fusionner PDFs",
@@ -55,6 +74,7 @@
       "heading": "Fusionner PDFs",
       "intro": "Combiner plusieurs fichiers PDF en un seul document",
       "uploadFiles": "Télécharger des fichiers PDF",
+      "downloadMerged": "Télécharger le fichier PDF fusionné",
       "filesUploaded": "fichiers téléchargés",
       "reorder": "Glissez pour réorganiser les fichiers",
       "mergeAll": "Fusionner tous les PDFs",
@@ -275,7 +295,7 @@
       "whyDescription": "La fusion de PDFs est essentielle pour créer des documents complets, combiner plusieurs factures, consolider des rapports ou préparer des documents pour l'impression. Notre outil facilite la combinaison de PDFs tout en maintenant la qualité et le formatage."
     },
     "imageToPdf": {
-      "metaDescription": "Convertir des images en PDF en ligne gratuitement. Transformez des fichiers JPG, PNG et JPEG en documents PDF rapidement. Aucun téléchargement de fichier requis, 100% sécurisé et privé.",
+      "metaDescription": "Convertir des images en PDF en ligne gratuitement. Transformez des fichiers JPG, PNG et JPEG en documents PDF rapidement. Aucun téléchargement de fichier requis,",
       "heading": "Convertisseur gratuit d'image en PDF",
       "description1": "Convertissez vos images (JPG, PNG, JPEG) au format PDF avec notre convertisseur en ligne gratuit. Parfait pour créer des portfolios PDF, convertir des documents numérisés ou archiver des photos dans un format universel.",
       "howToTitle": "Comment convertir des images en PDF",

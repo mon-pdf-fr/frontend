@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTranslations } from 'next-intl'
 import { Loader2, Download, FileCheck, Upload } from "lucide-react"
+import { EmailShareButton } from "@/components/email-share-button"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
@@ -66,6 +67,11 @@ export function PDFCompressTool() {
     } finally {
       setCompressing(false)
     }
+  }
+
+  const generateCompressedBlob = async (): Promise<Blob | null> => {
+    if (!compressedData) return null
+    return compressedData.blob
   }
 
   const handleDownload = () => {
@@ -243,15 +249,23 @@ export function PDFCompressTool() {
                   )}
                 </Button>
               ) : (
-                <>
-                  <Button onClick={handleDownload} className="flex-1" size="lg">
-                    <Download className="mr-2 h-4 w-4" />
-                    {t('tools.compressPdf.downloadCompressed')}
-                  </Button>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button onClick={handleDownload} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" size="lg">
+                      <Download className="mr-2 h-4 w-4" />
+                      {t('tools.compressPdf.downloadCompressed')}
+                    </Button>
+                    <EmailShareButton
+                      onGenerateBlob={generateCompressedBlob}
+                      fileName={file?.name.replace(/\.pdf$/i, "_compressed.pdf") || "compressed.pdf"}
+                      shareMessage="I've compressed a PDF document using Mon PDF."
+                      className="sm:w-auto w-full"
+                    />
+                  </div>
                   <Button onClick={handleReset} variant="outline" size="lg">
                     {t('common.cancel')}
                   </Button>
-                </>
+                </div>
               )}
             </div>
           </div>

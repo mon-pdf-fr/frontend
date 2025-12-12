@@ -174,8 +174,8 @@ export default function ImageToPDFPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Combinez plusieurs images en un seul PDF. Conversion rapide et gratuite. 100% sécurisé.'
-                    : 'Combine multiple images into a single PDF. Fast and free conversion. 100% secure.'}
+                    ? 'Combinez plusieurs images en un seul PDF. Conversion rapide et gratuite.'
+                    : 'Combine multiple images into a single PDF. Fast and free conversion.Outils PDF en ligne gratuits'}
                 </p>
               </div>
             </div>

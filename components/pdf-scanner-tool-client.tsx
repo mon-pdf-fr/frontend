@@ -21,6 +21,7 @@ import {
   RefreshCw,
 } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
+import { EmailShareButton } from '@/components/email-share-button'
 
 interface ScannedImage {
   data: string // base64
@@ -36,6 +37,7 @@ export function PDFScannerToolClient() {
   const [images, setImages] = useState<ScannedImage[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
   const [lastCheckTime, setLastCheckTime] = useState<number>(Date.now())
+  const [scannedBlob, setScannedBlob] = useState<Blob | null>(null)
 
   // Check for existing session from URL params (mobile return flow)
   useEffect(() => {
@@ -231,16 +233,9 @@ export function PDFScannerToolClient() {
 
       const pdfBytes = await pdfDoc.save()
 
-      // Download PDF
+      // Save PDF blob
       const blob = new Blob([pdfBytes], { type: 'application/pdf' })
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `scanned_${Date.now()}.pdf`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+      setScannedBlob(blob)
 
       toast.success('PDF generated successfully', {
         description: `${images.length} pages scanned`,
@@ -251,6 +246,23 @@ export function PDFScannerToolClient() {
     } finally {
       setIsGenerating(false)
     }
+  }
+
+  const generateBlob = async (): Promise<Blob | null> => {
+    return scannedBlob
+  }
+
+  const handleDownload = () => {
+    if (!scannedBlob) return
+
+    const url = URL.createObjectURL(scannedBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `scanned_${Date.now()}.pdf`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   return (
@@ -315,23 +327,50 @@ export function PDFScannerToolClient() {
 
               {/* Actions */}
               <div className="space-y-2">
-                <Button
-                  onClick={generatePDF}
-                  className="w-full"
-                  disabled={images.length === 0 || isGenerating}
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Download className="mr-2 h-4 w-4" />
-                      Generate PDF
-                    </>
-                  )}
-                </Button>
+                {!scannedBlob ? (
+                  <Button
+                    onClick={generatePDF}
+                    className="w-full"
+                    disabled={images.length === 0 || isGenerating}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Scan className="mr-2 h-4 w-4" />
+                        Generate PDF
+                      </>
+                    )}
+                  </Button>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                      <p className="text-green-700 dark:text-green-400 font-medium text-sm">
+                        ✓ PDF generated successfully!
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        onClick={handleDownload}
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Download PDF
+                      </Button>
+                      <EmailShareButton
+                        onGenerateBlob={generateBlob}
+                        fileName={`scanned_${Date.now()}.pdf`}
+                        shareMessage={`I've scanned ${images.length} page${images.length !== 1 ? 's' : ''} to PDF using Mon PDF.`}
+                        className="w-full"
+                        iconOnlyMobile={false}
+                      />
+                    </div>
+                  </div>
+                )}
 
                 {isMobileDevice() && (
                   <Button

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { useTranslations } from 'next-intl'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,11 +9,13 @@ import { FileList } from "@/components/file-list"
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { addFiles, removeFile, setProcessing, clearFiles } from "@/lib/features/pdf-slice"
 import { FileImage, Download } from "lucide-react"
+import { EmailShareButton } from "@/components/email-share-button"
 
 export function ImageToPDFTool() {
   const t = useTranslations()
   const dispatch = useAppDispatch()
   const { files, processing } = useAppSelector((state) => state.pdf)
+  const [convertedBlob, setConvertedBlob] = useState<Blob | null>(null)
 
   const handleFilesSelected = async (fileList: FileList) => {
     const newFiles = Array.from(fileList).map((file) => ({
@@ -22,6 +25,10 @@ export function ImageToPDFTool() {
       preview: URL.createObjectURL(file),
     }))
     dispatch(addFiles(newFiles))
+  }
+
+  const generateBlob = async (): Promise<Blob | null> => {
+    return convertedBlob
   }
 
   const handleConvert = async () => {
@@ -46,6 +53,7 @@ export function ImageToPDFTool() {
       }
 
       const blob = await response.blob()
+      setConvertedBlob(blob)
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
@@ -82,7 +90,7 @@ export function ImageToPDFTool() {
           selectable={false}
         />
 
-        {files.length > 0 && (
+        {files.length > 0 && !convertedBlob && (
           <Button onClick={handleConvert} disabled={processing} className="w-full" size="lg">
             {processing ? (
               t('tools.imageToPdf.converting')
@@ -93,6 +101,21 @@ export function ImageToPDFTool() {
               </>
             )}
           </Button>
+        )}
+
+        {convertedBlob && (
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button onClick={handleConvert} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" size="lg">
+              <Download className="mr-2 h-4 w-4" />
+              {t('tools.imageToPdf.convertAll')}
+            </Button>
+            <EmailShareButton
+              onGenerateBlob={generateBlob}
+              fileName="images-to-pdf.pdf"
+              shareMessage="I've converted images to PDF using Mon PDF."
+              className="sm:w-auto w-full"
+            />
+          </div>
         )}
       </CardContent>
     </Card>

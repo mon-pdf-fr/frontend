@@ -1,5 +1,6 @@
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
+import {SiteHeader} from "@/components/site-header"
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -16,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Fusionner des fichiers PDF en ligne gratuitement. Combinez plusieurs PDF en un seul document en quelques secondes. Sans inscription. 100% sécurisé et privé.'
-    : 'Merge PDF files online for free. Combine multiple PDFs into one document in seconds. No email required. 100% secure and private. Works on all devices.'
+    ? 'Fusionner des fichiers PDF en ligne gratuitement. Combinez plusieurs PDF en un seul document en quelques secondes. Sans inscription.'
+    : 'Merge PDF files online for free. Combine multiple PDFs into one document in seconds. No email required. Works on all devices.'
 
   return {
     title,
@@ -77,8 +78,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   }
 }
-
-import {SiteHeader} from "@/components/site-header"
 
 export default function MergeLayout({
   children,

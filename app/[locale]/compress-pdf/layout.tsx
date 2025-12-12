@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { getTranslations } from 'next-intl/server'
-import { Metadata } from 'next'
+import {getTranslations} from 'next-intl/server'
+import {Metadata} from 'next'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Compresser des fichiers PDF en ligne gratuitement. Réduisez la taille de vos PDF sans perte de qualité. Sans inscription. 100% sécurisé et privé.'
-    : 'Compress PDF files online for free. Reduce PDF file size without losing quality. No email required. 100% secure and private. Works on all devices.'
+    ? 'Compresser des fichiers PDF en ligne gratuitement. Réduisez la taille de vos PDF sans perte de qualité. Sans inscription.'
+    : 'Compress PDF files online for free. Reduce PDF file size without losing quality. No email required. Works on all devices.'
 
   const keywords =
     locale === 'fr'

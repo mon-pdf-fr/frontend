@@ -60,7 +60,7 @@ export default function BlogPage() {
         : 'How to Merge PDF Online Free: Complete Guide 2025',
       description: locale === 'fr'
         ? 'Découvrez comment fusionner des fichiers PDF en ligne gratuitement et en toute sécurité. Guide étape par étape avec les meilleures pratiques pour combiner vos documents PDF.'
-        : 'Learn how to merge PDF files online for free and securely. Step-by-step guide with best practices for combining your PDF documents.',
+        : 'Learn how to merge PDF files online for free. Step-by-step guide with best practices for combining your PDF documents.',
       date: locale === 'fr' ? '14 Novembre 2025' : 'November 14, 2025',
       readTime: locale === 'fr' ? '5 min de lecture' : '5 min read',
       category: locale === 'fr' ? 'Tutoriels' : 'Tutorials',

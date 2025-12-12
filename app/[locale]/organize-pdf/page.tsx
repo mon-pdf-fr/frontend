@@ -38,8 +38,8 @@ export default function OrganizePDFPage() {
     "url": "https://mon-pdf.fr",
     "logo": "https://mon-pdf.fr/logo.png",
     "description": locale === 'fr'
-      ? "Outils PDF en ligne gratuits et sécurisés"
-      : "Free and secure online PDF tools"
+      ? "Outils PDF en ligne gratuits"
+      : "Free online PDF tools"
   }
 
   const breadcrumbSchema = {
@@ -209,8 +209,8 @@ export default function OrganizePDFPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Réorganisez, supprimez, faites pivoter ou dupliquez des pages PDF. 100% gratuit, sécurisé et privé.'
-                    : 'Rearrange, delete, rotate, or duplicate PDF pages. 100% free, secure, and private.'}
+                    ? 'Réorganisez, supprimez, faites pivoter ou dupliquez des pages PDF. 100% gratuit.'
+                    : 'Rearrange, delete, rotate, or duplicate PDF pages. 100% free.'}
                 </p>
               </div>
             </div>

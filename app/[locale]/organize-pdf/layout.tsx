@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Organiser des pages PDF en ligne gratuitement. Réorganisez, supprimez, faites pivoter ou dupliquez des pages. Sans inscription. 100% sécurisé et privé.'
-    : 'Organize PDF pages online for free. Rearrange, delete, rotate, or duplicate pages. No email required. 100% secure and private. Works on all devices.'
+    ? 'Organiser des pages PDF en ligne gratuitement. Réorganisez, supprimez, faites pivoter ou dupliquez des pages. Sans inscription.'
+    : 'Organize PDF pages online for free. Rearrange, delete, rotate, or duplicate pages. No email required. Works on all devices.'
 
   return {
     title,

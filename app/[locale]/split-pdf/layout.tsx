@@ -1,6 +1,6 @@
 import {SiteHeader} from "@/components/site-header"
-import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import {Metadata} from 'next'
+import {getTranslations} from 'next-intl/server'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Compelling meta descriptions addressing user intent
   const description = locale === 'fr'
-    ? 'Diviser des fichiers PDF en ligne gratuitement. Séparez un PDF en plusieurs fichiers ou extrayez des pages spécifiques. Sans inscription. 100% sécurisé et privé.'
-    : 'Split PDF files online for free. Separate a PDF into multiple files or extract specific pages. No email required. 100% secure and private. Works on all devices.'
+    ? 'Diviser des fichiers PDF en ligne gratuitement. Séparez un PDF en plusieurs fichiers ou extrayez des pages spécifiques. Sans inscription.'
+    : 'Split PDF files online for free. Separate a PDF into multiple files or extract specific pages. No email required.'
 
   return {
     title,

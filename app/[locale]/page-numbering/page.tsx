@@ -21,8 +21,8 @@ export default function PageNumberingPage() {
     "url": "https://mon-pdf.fr",
     "logo": "https://mon-pdf.fr/logo.png",
     "description": locale === 'fr'
-      ? "Outils PDF en ligne gratuits et sécurisés"
-      : "Free and secure online PDF tools"
+      ? "Outils PDF en ligne gratuits"
+      : "Free online PDF tools"
   }
 
   const breadcrumbSchema = {
@@ -192,8 +192,8 @@ export default function PageNumberingPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Ajoutez des numéros de page à vos PDF avec position et format personnalisés. 100% gratuit, sécurisé et privé.'
-                    : 'Add page numbers to your PDFs with custom position and format. 100% free, secure, and private.'}
+                    ? 'Ajoutez des numéros de page à vos PDF avec position et format personnalisés. 100% gratuit.'
+                    : 'Add page numbers to your PDFs with custom position and format. 100% free.'}
                 </p>
               </div>
 

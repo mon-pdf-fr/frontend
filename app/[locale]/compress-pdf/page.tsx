@@ -38,8 +38,8 @@ export default function CompressPDFPage() {
     "url": "https://mon-pdf.fr",
     "logo": "https://mon-pdf.fr/logo.png",
     "description": locale === 'fr'
-      ? "Outils PDF en ligne gratuits et sécurisés"
-      : "Free and secure online PDF tools"
+      ? "Outils PDF en ligne gratuits"
+      : "Free online PDF tools"
   }
 
   const breadcrumbSchema = {
@@ -209,8 +209,8 @@ export default function CompressPDFPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Réduisez la taille de vos fichiers PDF sans perte de qualité. 100% gratuit, sécurisé et privé.'
-                    : 'Reduce PDF file size without losing quality. 100% free, secure, and private.'}
+                    ? 'Réduisez la taille de vos fichiers PDF sans perte de qualité. 100% gratuit.'
+                    : 'Reduce PDF file size without losing quality. 100% free.'}
                 </p>
               </div>
             </div>

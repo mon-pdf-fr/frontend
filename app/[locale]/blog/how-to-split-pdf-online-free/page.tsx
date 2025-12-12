@@ -559,7 +559,6 @@ export default function SplitPDFGuidePage() {
                   </p>
                   <ul>
                     <li>Processing in seconds within your browser</li>
-                    <li>No upload to external servers</li>
                     <li>Preservation of original page quality</li>
                     <li>Immediate download of your resulting PDF files</li>
                     <li>Batch download option if multiple files created</li>

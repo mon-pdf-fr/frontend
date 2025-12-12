@@ -28,6 +28,7 @@ import {
 
 import { addPageNumbers, NumberPosition, NumberStyle, PageNumberingOptions } from '@/lib/pdf/page-numbering';
 import { PageNumberPositionSelector } from '@/components/page-number-position-selector';
+import { EmailShareButton } from '@/components/email-share-button';
 
 // Lazy load PDF viewer to avoid SSR issues
 const PDFViewer = lazy(() => import('@/components/pdf-viewer').then(mod => ({ default: mod.PDFViewer })));
@@ -162,6 +163,11 @@ export function PageNumberingTool() {
     URL.revokeObjectURL(url);
 
     toast.success(t('tools.pageNumbering.downloadSuccess'));
+  };
+
+  const generateBlob = async (): Promise<Blob | null> => {
+    if (!processedPdf) return null;
+    return new Blob([processedPdf], { type: 'application/pdf' });
   };
 
   const resetState = () => {
@@ -405,10 +411,18 @@ export function PageNumberingTool() {
               </Alert>
 
               <div className="flex flex-col gap-2">
-                <Button onClick={handleDownload} className="w-full">
-                  <Download className="mr-2 h-4 w-4" />
-                  {t('tools.pageNumbering.download')}
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button onClick={handleDownload} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                    <Download className="mr-2 h-4 w-4" />
+                    {t('tools.pageNumbering.download')}
+                  </Button>
+                  <EmailShareButton
+                    onGenerateBlob={generateBlob}
+                    fileName={file ? file.name.replace('.pdf', '_numbered.pdf') : "numbered.pdf"}
+                    shareMessage="I've added page numbers to a PDF using Mon PDF."
+                    className="sm:w-auto w-full"
+                  />
+                </div>
                 <Button onClick={resetState} variant="outline" className="w-full">
                   <Trash2 className="mr-2 h-4 w-4" />
                   {t('tools.pageNumbering.processAnother')}

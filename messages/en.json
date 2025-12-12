@@ -7,7 +7,6 @@
     "deselectAll": "Deselect All",
     "cancel": "Cancel",
     "continue": "Continue",
-    "privacyNote": "🔒 100% Private & Secure: All processing happens locally on your device. Your files never leave your computer and are never uploaded to any server.",
     "betaTooltip": "This feature is currently in beta testing and may not be 100% accurate. We're continuously improving it based on user feedback."
   },
   "bookmark": {
@@ -28,8 +27,7 @@
     "title": "Mon PDF"
   },
   "home": {
-    "title": "Choose a tool to get started",
-    "subtitle": "🔒 100% Client-Side Processing: Everything happens directly in your browser. Your files stay on your device and are never uploaded to any server. Complete privacy guaranteed."
+    "title": "Choose a tool to get started"
   },
   "tools": {
     "split": {
@@ -47,7 +45,28 @@
       "pageRangePlaceholder": "e.g., 1-3,5,7-9",
       "pageRangeHelp": "Enter page numbers or ranges separated by commas",
       "splitByRange": "Split PDF by Range",
-      "loadedPages": "Loaded {current} of {total} pages"
+      "loadedPages": "Loaded {current} of {total} pages",
+      "downloadOrShare": "Download or Share",
+      "shareVia": "Share",
+      "shareEmail": "Email",
+      "shareWhatsApp": "WhatsApp",
+      "shareFacebook": "Facebook",
+      "downloading": "Preparing download...",
+      "sharingPreparing": "Preparing to share...",
+      "emailSentTitle": "Email Sent Successfully!",
+      "emailSentMessage": "Your PDF has been sent to {email}. If you don't see it in a few minutes, please check your spam folder.",
+      "emailErrorTitle": "Failed to Send Email",
+      "emailErrorMessage": "We couldn't send the email. Please try again or download the PDF and send it manually.",
+      "emailRequired": "Please enter a recipient email address",
+      "shareEmailDialogTitle": "Share via Email",
+      "shareEmailDialogDescription": "Send this PDF document directly to someone's email address.",
+      "recipientEmailLabel": "Recipient Email",
+      "recipientEmailPlaceholder": "recipient@example.com",
+      "messageLabel": "Message (Optional)",
+      "messagePlaceholder": "Add a personal message...",
+      "emailNoteMessage": "The PDF will be attached to the email and sent directly to the recipient.",
+      "sending": "Sending...",
+      "sendEmail": "Send Email"
     },
     "merge": {
       "title": "Merge PDFs",
@@ -55,6 +74,7 @@
       "heading": "Merge PDFs",
       "intro": "Combine multiple PDF files into a single document",
       "uploadFiles": "Upload PDF files",
+      "downloadMerged": "Download Merged PDF",
       "filesUploaded": "files uploaded",
       "reorder": "Drag to reorder files",
       "mergeAll": "Merge All PDFs",
@@ -243,7 +263,7 @@
   },
   "seo": {
     "split": {
-      "metaDescription": "Split PDF files online for free. Extract specific pages from your PDF documents quickly and securely. No registration required, 100% client-side processing.",
+      "metaDescription": "Split PDF files online for free. Extract specific pages from your PDF documents quickly. No registration required.",
       "heading": "Free Online PDF Splitter Tool",
       "description1": "Our free online PDF splitter allows you to extract specific pages from your PDF documents effortlessly. Whether you need to separate a single page or multiple pages, our tool provides a fast, secure, and user-friendly solution.",
       "howToTitle": "How to Split a PDF",
@@ -259,7 +279,7 @@
       "whyDescription": "Splitting PDF files is useful for extracting specific chapters, sharing selected pages, reducing file size, or organizing documents. Whether you're a student, professional, or casual user, our PDF splitter makes the process simple and efficient."
     },
     "merge": {
-      "metaDescription": "Merge multiple PDF files into one document online for free. Combine PDFs quickly and securely with no registration required. 100% client-side processing.",
+      "metaDescription": "Merge multiple PDF files into one document online for free. Combine PDFs quickly and securely with no registration required.",
       "heading": "Free Online PDF Merger Tool",
       "description1": "Combine multiple PDF files into a single document with our free online PDF merger. Perfect for consolidating reports, combining chapters, or organizing multiple documents into one professional file.",
       "howToTitle": "How to Merge PDFs",
@@ -275,7 +295,7 @@
       "whyDescription": "Merging PDFs is essential for creating comprehensive documents, combining multiple invoices, consolidating reports, or preparing documents for printing. Our tool makes it easy to combine PDFs while maintaining quality and formatting."
     },
     "imageToPdf": {
-      "metaDescription": "Convert images to PDF online for free. Transform JPG, PNG, and JPEG files into PDF documents quickly. No file upload required, 100% secure and private.",
+      "metaDescription": "Convert images to PDF online for free. Transform JPG, PNG, and JPEG files into PDF documents quickly. No file upload required,",
       "heading": "Free Image to PDF Converter",
       "description1": "Convert your images (JPG, PNG, JPEG) into PDF format with our free online converter. Perfect for creating PDF portfolios, converting scanned documents, or archiving photos in a universal format.",
       "howToTitle": "How to Convert Images to PDF",
@@ -323,7 +343,7 @@
       "whyDescription": "Compressing PDFs is essential for email attachments, faster website loading, saving storage space, and meeting file size limits. Our tool uses smart compression algorithms to significantly reduce file size while maintaining document quality and readability."
     },
     "pageNumbering": {
-      "metaDescription": "Add page numbers to PDF online for free. Customize position, style, and format. Multiple numbering options including Roman numerals. 100% client-side processing.",
+      "metaDescription": "Add page numbers to PDF online for free. Customize position, style, and format. Multiple numbering options including Roman numerals. ",
       "heading": "Free Online PDF Page Numbering Tool",
       "description1": "Add professional page numbers to your PDF documents with our free online tool. Choose from multiple numbering styles (numeric, Roman, alphabetical), customize position, font size, colors, and margins. All processing happens in your browser for complete privacy.",
       "howToTitle": "How to Add Page Numbers to PDF",
@@ -341,7 +361,7 @@
       "whyDescription": "Page numbers are essential for professional documents, academic papers, legal documents, reports, and manuscripts. They help readers navigate long documents, reference specific pages, and maintain organization. Our tool makes it easy to add customized page numbers with full control over position, style, and formatting."
     },
     "pdfToImages": {
-      "metaDescription": "Convert PDF to images online for free. Extract each page as PNG, JPEG, or WebP. High quality conversion, no upload required, 100% client-side processing.",
+      "metaDescription": "Convert PDF to images online for free. Extract each page as PNG, JPEG, or WebP. High quality conversion, no upload required, ",
       "heading": "Free Online PDF to Images Converter",
       "description1": "Convert your PDF documents into individual images with our free online converter. Each page becomes a separate high-quality image file in PNG, JPEG, or WebP format. Perfect for extracting pages, creating presentations, or sharing specific pages.",
       "howToTitle": "How to Convert PDF to Images",
@@ -357,7 +377,7 @@
       "whyDescription": "Converting PDF pages to images is useful for creating presentations, sharing specific pages on social media, embedding in documents, creating thumbnails, or archiving important pages. Our tool makes it easy to extract any page as a high-quality image file."
     },
     "ocr": {
-      "metaDescription": "Extract text from scanned PDFs with OCR online for free. Detect tables, key-value pairs, and export data in CSV, JSON, or TXT format. 100% client-side processing.",
+      "metaDescription": "Extract text from scanned PDFs with OCR online for free. Detect tables, key-value pairs, and export data in CSV, JSON, or TXT format. ",
       "heading": "Free Online PDF OCR & Data Extraction Tool",
       "description1": "Extract text from scanned PDFs and images using advanced OCR technology. Our tool runs entirely in your browser, automatically detects tables, finds key-value pairs, and allows you to export data in multiple formats. Perfect for digitizing documents, extracting data, and making scanned PDFs searchable.",
       "howToTitle": "How to Use PDF OCR",

@@ -659,18 +659,6 @@ export default function ScanPDFGuidePage() {
                     <li>No intrusive ads or in-app purchases</li>
                   </ul>
 
-                  <h3>Complete Privacy and Security</h3>
-                  <p>
-                    Your privacy is our priority. When you <strong>scan documents to PDF</strong> with our tool:
-                  </p>
-                  <ul>
-                    <li><strong>100% local processing</strong> - your documents never leave your device</li>
-                    <li><strong>No cloud storage</strong> - nothing is saved on our servers</li>
-                    <li><strong>No tracking</strong> - we don't collect your personal data</li>
-                    <li><strong>GDPR compliant</strong> - full respect of European privacy standards</li>
-                    <li><strong>Automatic deletion</strong> - data is erased as soon as you close the page</li>
-                  </ul>
-
                   <h3>Professional Quality Guaranteed</h3>
                   <p>
                     Our <strong>PDF document scanner</strong> uses advanced algorithms to guarantee professional results:

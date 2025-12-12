@@ -11,6 +11,7 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {Badge} from '@/components/ui/badge'
 import {AlertCircle, CheckCircle2, Download, FileText, FileType, Image as ImageIcon, Loader2, Scan, Upload, X} from 'lucide-react'
 import {toast} from 'sonner'
+import {EmailShareButton} from '@/components/email-share-button'
 import * as pdfjsLib from 'pdfjs-dist'
 import {
   AlignmentType,
@@ -1032,6 +1033,19 @@ export function PDFToWordTool() {
     }
   }
 
+  const generateBlobForFile = (fileId: string) => async (): Promise<Blob | null> => {
+    const fileItem = files.find(f => f.id === fileId)
+    if (!fileItem || !fileItem.downloadUrl) return null
+
+    try {
+      const response = await fetch(fileItem.downloadUrl)
+      return await response.blob()
+    } catch (error) {
+      console.error('Error generating blob:', error)
+      return null
+    }
+  }
+
   const downloadFile = (fileId: string) => {
     const fileItem = files.find(f => f.id === fileId)
     if (!fileItem || !fileItem.downloadUrl) return
@@ -1190,13 +1204,22 @@ export function PDFToWordTool() {
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           {getStatusBadge(fileItem.status)}
-                          <Button
-                            size="sm"
-                            onClick={() => downloadFile(fileItem.id)}
-                          >
-                            <Download className="mr-2 h-4 w-4" />
-                            Download
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => downloadFile(fileItem.id)}
+                              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                            >
+                              <Download className="mr-2 h-4 w-4" />
+                              Download
+                            </Button>
+                            <EmailShareButton
+                              onGenerateBlob={generateBlobForFile(fileItem.id)}
+                              fileName={fileItem.file.name.replace('.pdf', '.docx')}
+                              shareMessage="I've converted a PDF to Word using Mon PDF."
+                              className="sm:w-auto w-full"
+                            />
+                          </div>
                           <Button
                             size="sm"
                             variant="outline"

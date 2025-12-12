@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : 'Mon PDF - Free Online PDF Tools | Merge, Split, Compress PDF'
 
   const description = locale === 'fr'
-    ? 'Outils PDF en ligne 100% gratuits et sécurisés. Fusionner, diviser, compresser, convertir PDF. Sans inscription. Traitement local dans votre navigateur.'
-    : 'Free and secure online PDF tools. Merge, split, compress, convert PDFs. No registration. Local processing in your browser for privacy.'
+    ? 'Outils PDF en ligne 100% gratuits. Fusionner, diviser, compresser, convertir PDF. Sans inscription.'
+    : 'Free online PDF tools. Merge, split, compress, convert PDFs. No registration.'
 
   return {
     title,

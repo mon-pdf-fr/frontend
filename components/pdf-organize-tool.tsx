@@ -3,10 +3,11 @@
 import {useState} from "react"
 import {useTranslations} from 'next-intl'
 import {PDFDocument} from "pdf-lib"
-import {GripVertical, RotateCcw, Upload, X} from "lucide-react"
+import {GripVertical, RotateCcw, Upload, X, Download} from "lucide-react"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
 import {Alert, AlertDescription} from "@/components/ui/alert"
+import {EmailShareButton} from "@/components/email-share-button"
 import * as pdfjs from "pdfjs-dist";
 
 interface PageData {
@@ -24,6 +25,7 @@ export function PDFOrganizeTool() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [organizedBlob, setOrganizedBlob] = useState<Blob | null>(null)
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0]
@@ -161,6 +163,10 @@ export function PDFOrganizeTool() {
     setPages(newPages)
   }
 
+  const generateBlob = async (): Promise<Blob | null> => {
+    return organizedBlob
+  }
+
   const handleDownload = async () => {
     if (!file) return
 
@@ -195,6 +201,7 @@ export function PDFOrganizeTool() {
       }
 
       const blob = await response.blob()
+      setOrganizedBlob(blob)
       const url = URL.createObjectURL(blob)
       const link = document.createElement("a")
       link.href = url
@@ -341,14 +348,33 @@ export function PDFOrganizeTool() {
                   </Alert>
                 )}
 
-                <Button
-                  onClick={handleDownload}
-                  disabled={isProcessing || activePageCount === 0}
-                  className="w-full"
-                  size="lg"
-                >
-                  {isProcessing ? t('tools.organizePdf.organizing') : t('tools.organizePdf.downloadOrganized')}
-                </Button>
+                {!organizedBlob ? (
+                  <Button
+                    onClick={handleDownload}
+                    disabled={isProcessing || activePageCount === 0}
+                    className="w-full"
+                    size="lg"
+                  >
+                    {isProcessing ? t('tools.organizePdf.organizing') : t('tools.organizePdf.downloadOrganized')}
+                  </Button>
+                ) : (
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      onClick={handleDownload}
+                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                      size="lg"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      {t('tools.organizePdf.downloadOrganized')}
+                    </Button>
+                    <EmailShareButton
+                      onGenerateBlob={generateBlob}
+                      fileName={file ? `organized_${file.name}` : "organized.pdf"}
+                      shareMessage="I've organized a PDF document using Mon PDF."
+                      className="sm:w-auto w-full"
+                    />
+                  </div>
+                )}
               </>
             )}
           </div>

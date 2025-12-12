@@ -136,25 +136,6 @@ export default function Home() {
             <h1 className="text-2xl sm:text-5xl lg:text-4xl font-bold mb-4 sm:mb-6 text-balance leading-tight">
               {t('home.title')}
             </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance mx-auto leading-relaxed">
-              {t('home.subtitle')}
-            </p>
-          </div>
-
-          {/* Privacy badges */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
-            <div className="flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 shadow-sm">
-              <div className="h-2 w-2 rounded-full bg-green-500" />
-              <span className="text-xs sm:text-sm font-medium">
-                {locale === 'fr' ? 'Pas de téléchargement' : 'No Upload'}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-card border border-border px-4 py-2 shadow-sm">
-              <div className="h-2 w-2 rounded-full bg-blue-500" />
-              <span className="text-xs sm:text-sm font-medium">
-                {locale === 'fr' ? '100% Privé' : '100% Private'}
-              </span>
-            </div>
           </div>
         </div>
 
@@ -175,7 +156,7 @@ export default function Home() {
 
         {/* Features section */}
         <div className="mt-16 sm:mt-24 max-w-4xl mx-auto pb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             <div className="text-center">
               <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-500/10">
                 <Sparkles className="h-7 w-7 text-purple-600" />
@@ -187,19 +168,6 @@ export default function Home() {
                 {locale === 'fr'
                   ? 'Traitez vos PDF instantanément avec notre moteur basé navigateur'
                   : 'Process PDFs instantly with our browser-based engine'}
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10">
-                <Sparkles className="h-7 w-7 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">
-                {locale === 'fr' ? 'Totalement Privé' : 'Fully Private'}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {locale === 'fr'
-                  ? 'Vos fichiers ne quittent jamais votre appareil, jamais'
-                  : 'Your files never leave your device, ever'}
               </p>
             </div>
             <div className="text-center">

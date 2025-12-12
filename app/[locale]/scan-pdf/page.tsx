@@ -174,8 +174,8 @@ export default function ScanPDFPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Utilisez votre caméra pour scanner des documents en PDF. Rapide, gratuit et sécurisé.'
-                    : 'Use your camera to scan documents to PDF. Fast, free and secure.'}
+                    ? 'Utilisez votre caméra pour scanner des documents en PDF.'
+                    : 'Use your camera to scan documents to PDF..'}
                 </p>
               </div>
             </div>

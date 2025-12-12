@@ -38,8 +38,8 @@ export default function MergePDFPage() {
     "url": "https://mon-pdf.fr",
     "logo": "https://mon-pdf.fr/logo.png",
     "description": locale === 'fr'
-      ? "Outils PDF en ligne gratuits et sécurisés"
-      : "Free and secure online PDF tools"
+      ? "Outils PDF en ligne gratuits"
+      : "Free online PDF tools"
   }
 
   const breadcrumbSchema = {
@@ -112,14 +112,6 @@ export default function MergePDFPage() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": locale === 'fr' ? [
-      {
-        "@type": "Question",
-        "name": "Est-il sûr de fusionner des PDF en ligne ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Oui, notre outil traite tous les fichiers localement dans votre navigateur. Vos fichiers ne quittent jamais votre appareil et ne sont jamais téléchargés sur nos serveurs, garantissant une confidentialité et une sécurité totales."
-        }
-      },
       {
         "@type": "Question",
         "name": "Puis-je fusionner des PDF protégés par mot de passe ?",
@@ -209,8 +201,8 @@ export default function MergePDFPage() {
                 </h1>
                 <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
                   {locale === 'fr'
-                    ? 'Combinez plusieurs fichiers PDF en un seul document. 100% gratuit, sécurisé et privé.'
-                    : 'Combine multiple PDF files into one document. 100% free, secure, and private.'}
+                    ? 'Combinez plusieurs fichiers PDF en un seul document. 100% gratuit.'
+                    : 'Combine multiple PDF files into one document. 100% free.'}
                 </p>
               </div>
             </div>

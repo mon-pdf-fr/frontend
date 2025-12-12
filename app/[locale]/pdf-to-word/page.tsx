@@ -36,8 +36,8 @@ export default function PDFToWordPage() {
     "url": "https://mon-pdf.fr",
     "logo": "https://mon-pdf.fr/logo.png",
     "description": locale === 'fr'
-      ? "Outils PDF en ligne gratuits et sécurisés"
-      : "Free and secure online PDF tools"
+      ? "Outils PDF en ligne gratuits"
+      : "Free online PDF tools"
   }
 
   const breadcrumbSchema = {

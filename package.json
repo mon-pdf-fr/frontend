@@ -67,6 +67,7 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
     "redux": "latest",
+    "resend": "^6.6.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "sonner": "^1.7.4",

@@ -616,8 +616,7 @@ export default function MergePDFGuidePage() {
 
                   <h3>3. Merge and Download Your Combined PDF</h3>
                   <p>
-                    After organizing your files, simply click the "Merge PDF" button. Our tool processes your documents instantly
-                    in your browser - no waiting, no uploading to external servers. Within seconds, your <strong>merged PDF</strong>
+                    After organizing your files, simply click the "Merge PDF" button. Our tool processes your documents instantly. Within seconds, your <strong>merged PDF</strong>
                     is ready to download.
                   </p>
 
@@ -649,7 +648,6 @@ export default function MergePDFGuidePage() {
                   </p>
                   <ul>
                     <li>Your files never leave your device</li>
-                    <li>No upload to external servers</li>
                     <li>No storage of your documents</li>
                     <li>Complete protection of your sensitive data</li>
                     <li>Full compliance with GDPR and privacy standards</li>
